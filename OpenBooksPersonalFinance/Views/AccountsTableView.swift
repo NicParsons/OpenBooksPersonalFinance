@@ -1,10 +1,3 @@
-//
-//  AccountsTableView.swift
-//  OpenBooksPersonalFinance
-//
-//  Created by Nicholas Parsons on 7/7/2024.
-//
-
 import SwiftUI
 
 struct AccountsTableView: View {
@@ -13,6 +6,8 @@ struct AccountsTableView: View {
     }
 }
 
+/*
 #Preview {
     AccountsTableView()
 }
+*/

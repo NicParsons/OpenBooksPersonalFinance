@@ -1,12 +1,6 @@
-//
-//  OpenBooksPersonalFinanceApp.swift
-//  OpenBooksPersonalFinance
-//
-//  Created by Nicholas Parsons on 6/7/2024.
-//
-
 import SwiftUI
 import SwiftData
+import OBFoundation
 
 @main
 struct OpenBooksPersonalFinanceApp: App {
@@ -30,3 +24,10 @@ struct OpenBooksPersonalFinanceApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+//
+//  OpenBooksPersonalFinanceApp.swift
+//  OpenBooksPersonalFinance
+//
+//  Created by Nicholas Parsons on 6/7/2024.
+//
+
