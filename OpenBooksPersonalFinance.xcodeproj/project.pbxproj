@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040A51822C4296B300E5FA18 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A51812C4296B300E5FA18 /* Model.swift */; };
 		04AE64F92C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */; };
 		04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FA2C39620D00EFC09C /* ContentView.swift */; };
 		04AE64FD2C39620D00EFC09C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FC2C39620D00EFC09C /* Item.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040A51812C4296B300E5FA18 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		04AE64F52C39620D00EFC09C /* OpenBooksPersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBooksPersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBooksPersonalFinanceApp.swift; sourceTree = "<group>"; };
 		04AE64FA2C39620D00EFC09C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				04AE64FC2C39620D00EFC09C /* Item.swift */,
+				040A51812C4296B300E5FA18 /* Model.swift */,
 				04AE65092C39632D00EFC09C /* Transaction.swift */,
 				04AE650B2C39667800EFC09C /* Account.swift */,
 				04AE65112C397DD800EFC09C /* TimePeriod.swift */,
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040A51822C4296B300E5FA18 /* Model.swift in Sources */,
 				04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */,
 				04AE65122C397DD800EFC09C /* TimePeriod.swift in Sources */,
 				04AE650C2C39667800EFC09C /* Account.swift in Sources */,
