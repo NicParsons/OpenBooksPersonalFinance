@@ -19,6 +19,7 @@
 		04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE65132C397FBE00EFC09C /* RepetitionFrequency.swift */; };
 		04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */; };
 		04AE651B2C3A249600EFC09C /* OBFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 04AE651A2C3A249600EFC09C /* OBFoundation */; };
+		04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C752C4CAC4B0032AA0C /* AccountManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		04AE65112C397DD800EFC09C /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		04AE65132C397FBE00EFC09C /* RepetitionFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepetitionFrequency.swift; sourceTree = "<group>"; };
 		04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableView.swift; sourceTree = "<group>"; };
+		04E55C752C4CAC4B0032AA0C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				040A51812C4296B300E5FA18 /* Model.swift */,
 				04AE65092C39632D00EFC09C /* Transaction.swift */,
 				04AE650B2C39667800EFC09C /* Account.swift */,
+				04E55C752C4CAC4B0032AA0C /* AccountManager.swift */,
 				04AE65112C397DD800EFC09C /* TimePeriod.swift */,
 				04AE65132C397FBE00EFC09C /* RepetitionFrequency.swift */,
 			);
@@ -197,6 +200,7 @@
 				04AE65122C397DD800EFC09C /* TimePeriod.swift in Sources */,
 				04AE650C2C39667800EFC09C /* Account.swift in Sources */,
 				04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */,
+				04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */,
 				04AE64FD2C39620D00EFC09C /* Item.swift in Sources */,
 				04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */,
 				04AE650A2C39632D00EFC09C /* Transaction.swift in Sources */,
