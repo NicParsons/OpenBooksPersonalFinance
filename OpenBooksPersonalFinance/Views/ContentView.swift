@@ -9,7 +9,7 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List {
-				ForEach(accounts) { account in
+				ForEach(accounts.sorted(by: { $0.id < $1.id } )) { account in
                     NavigationLink {
 						AccountRowView(account: account)
                     } label: {
