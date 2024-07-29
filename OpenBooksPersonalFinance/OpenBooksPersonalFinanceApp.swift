@@ -6,7 +6,7 @@ import OBFoundation
 struct OpenBooksPersonalFinanceApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-			Transaction.self,
+			Account.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

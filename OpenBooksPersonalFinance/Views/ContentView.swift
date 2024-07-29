@@ -3,19 +3,25 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+	@Query private var accounts: [Account]
+	@State private var parentAccountID: String? = nil
+	@State private var newAccountName = ""
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+				ForEach(accounts) { account in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+						HStack {
+							Text(account.id)
+							Spacer()
+							Text(account.name)
+						}
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+						Text(account.name)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteAccounts)
             }
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -27,27 +33,29 @@ struct ContentView: View {
                 }
 #endif
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button(action: addAccount) {
+                        Label("Add Account", systemImage: "plus")
                     }
                 }
             }
         } detail: {
-            Text("Select an item")
+            Text("Select an account")
         }
     }
 
-    private func addItem() {
+    private func addAccount() {
+		let accountManager = AccountManager(context: modelContext, accounts: accounts)
+		let newID = accountManager.newID(inParentCategory: parentAccountID)
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+			let newAccount = Account(id: newID, name: newAccountName, parentAccountID: parentAccountID)
+modelContext.insert(newAccount)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteAccounts(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+				modelContext.delete(accounts[index])
             }
         }
     }

@@ -3,13 +3,13 @@ import SwiftData
 
 @Model
 class Account: Identifiable {
-	@Attribute(.unique) let id: String // or Int
+	@Attribute(.unique) let id: String
 	var name: String
 	// parentAccountID should ideally be foreign key to accounts.ID
-	var parentAccountID: String // or Int
+	var parentAccountID: String?
 	var hidden: Bool = false
 
-	init(id: String, name: String, parentAccountID: String) {
+	init(id: String, name: String, parentAccountID: String?) {
 		self.id = id
 		self.name = name
 		self.parentAccountID = parentAccountID
