@@ -5,18 +5,13 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 	@Query private var accounts: [Account]
 	@State private var parentAccountID: String? = nil
-	@State private var newAccountName = ""
 
     var body: some View {
         NavigationSplitView {
             List {
 				ForEach(accounts) { account in
                     NavigationLink {
-						HStack {
-							Text(account.id)
-							Spacer()
-							Text(account.name)
-						}
+						AccountRowView(account: account)
                     } label: {
 						Text(account.name)
                     }
@@ -47,7 +42,7 @@ struct ContentView: View {
 		let accountManager = AccountManager(context: modelContext, accounts: accounts)
 		let newID = accountManager.newID(inParentCategory: parentAccountID)
         withAnimation {
-			let newAccount = Account(id: newID, name: newAccountName, parentAccountID: parentAccountID)
+			let newAccount = Account(id: newID, name: "New Account", parentAccountID: parentAccountID)
 modelContext.insert(newAccount)
         }
     }
