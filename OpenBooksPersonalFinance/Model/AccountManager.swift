@@ -60,18 +60,10 @@ return nil
 	func increment(_ accountID: String) -> String {
 		let lastComponent = lastComponent(of: accountID)
 		let newSubcategoryInt = 1 + idAsInt(for: lastComponent)
-		let newSubcategory = stringify(newSubcategoryInt)
+		let newSubcategory = newSubcategoryInt.stringified(withMinStringLength: numberOfSubcategoryPlaces)
 		let parentCategoryID = parentAccountID(of: accountID)
 		let prefix = parentCategoryID ?? ""
 		return prefix.appending(newSubcategory)
-	}
-
-	func stringify(_ subcategoryInteger: Int) -> String {
-		var string = String(subcategoryInteger)
-		while string.count < numberOfSubcategoryPlaces {
-			string = "0" + string
-		}
-		return string
 	}
 
 	func lastComponent(of accountID: String) -> String {
@@ -96,13 +88,8 @@ return accountID
 			// largest == nil which means
 			// no subcategories in this parent category
 			//TODO: Should make method for returning the first subcategory in a parent category.
-			if let parent = parentAccountID {
-				// this will be the first subcategory in the parent category
-				return parent.appending(stringify(1))
-			} else {
-				// this will be the first account ID ever
-				return stringify(1)
-			} // end if parentAccountID
+			let parent = parentAccountID ?? ""
+			return parent.appending(1.stringified(withMinStringLength: numberOfSubcategoryPlaces))
 		} // end if largest
 	}
 

@@ -6,37 +6,37 @@ struct ContentView: View {
 	@Query private var accounts: [Account]
 	@State private var parentAccountID: String? = nil
 
-    var body: some View {
-        NavigationSplitView {
-            List {
+	var body: some View {
+		NavigationSplitView {
+			List {
 				ForEach(accounts.sorted(by: { $0.id < $1.id } )) { account in
-                    NavigationLink {
+					NavigationLink {
 						AccountRowView(account: account)
-                    } label: {
+					} label: {
 						Text(account.name)
-                    }
-                }
-                .onDelete(perform: deleteAccounts)
-            }
+					} // nav link label
+				} // ForEach
+				.onDelete(perform: deleteAccounts)
+			} // List
 #if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+			.navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
-            .toolbar {
+			.toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+				ToolbarItem(placement: .navigationBarTrailing) {
+					EditButton()
+				} // toolbar item
 #endif
-                ToolbarItem {
-                    Button(action: addAccount) {
-                        Label("Add Account", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an account")
-        }
-    }
+				ToolbarItem {
+					Button(action: addAccount) {
+						Label("Add Account", systemImage: "plus")
+					} // Button label closure
+				} // Toolbar item
+			} // toolbar
+		} detail: {
+			Text("Select an account")
+		} // nav split view detail closure
+	} // body
 
     private func addAccount() {
 		let accountManager = AccountManager(context: modelContext, accounts: accounts)
