@@ -5,10 +5,11 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 	@Query private var accounts: [Account]
 	@State private var parentAccountID: String? = nil
+	@State private var selection = Set<Account.ID>()
 
 	var body: some View {
 		NavigationSplitView {
-			List {
+			List(selection: $selection) {
 				ForEach(accounts.sorted(by: { $0.id < $1.id } )) { account in
 					NavigationLink {
 						AccountRowView(account: account)
@@ -17,6 +18,11 @@ struct ContentView: View {
 					} // nav link label
 				} // ForEach
 				.onDelete(perform: deleteAccounts)
+#if os(macOS)
+				.onDeleteCommand {
+					deleteSelectedAccounts(selection)
+				}
+				#endif
 			} // List
 #if os(macOS)
 			.navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -32,6 +38,13 @@ struct ContentView: View {
 						Label("Add Account", systemImage: "plus")
 					} // Button label closure
 				} // Toolbar item
+				/*
+				ToolbarItem {
+					Button(action: deleteAccounts) {
+						Label("Delete Account", systemImage: "minus")
+					} // Button
+				} // toolbar item
+				 */
 			} // toolbar
 		} detail: {
 			Text("Select an account")
@@ -47,18 +60,30 @@ modelContext.insert(newAccount)
         }
     }
 
-    private func deleteAccounts(offsets: IndexSet) {
+    private func deleteAccounts(at offsets: IndexSet) {
         withAnimation {
             for index in offsets {
 				modelContext.delete(accounts[index])
             }
         }
     }
+
+	private func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
+		let accountManager = AccountManager(context: modelContext, accounts: accounts)
+		withAnimation {
+			for accountID in identifiers {
+				if let account = accountManager[accountID] {
+					modelContext.delete(account)
+				}
+			}
+		}
+	}
+
 }
 
 /*
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Account.self, inMemory: true)
 }
 */

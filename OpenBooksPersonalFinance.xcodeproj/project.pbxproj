@@ -10,7 +10,6 @@
 		040A51822C4296B300E5FA18 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A51812C4296B300E5FA18 /* Model.swift */; };
 		04AE64F92C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */; };
 		04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FA2C39620D00EFC09C /* ContentView.swift */; };
-		04AE64FD2C39620D00EFC09C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FC2C39620D00EFC09C /* Item.swift */; };
 		04AE64FF2C39620E00EFC09C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AE64FE2C39620E00EFC09C /* Assets.xcassets */; };
 		04AE65032C39620E00EFC09C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AE65022C39620E00EFC09C /* Preview Assets.xcassets */; };
 		04AE650A2C39632D00EFC09C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE65092C39632D00EFC09C /* Transaction.swift */; };
@@ -28,7 +27,6 @@
 		04AE64F52C39620D00EFC09C /* OpenBooksPersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBooksPersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBooksPersonalFinanceApp.swift; sourceTree = "<group>"; };
 		04AE64FA2C39620D00EFC09C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		04AE64FC2C39620D00EFC09C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		04AE64FE2C39620E00EFC09C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04AE65002C39620E00EFC09C /* OpenBooksPersonalFinance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBooksPersonalFinance.entitlements; sourceTree = "<group>"; };
 		04AE65022C39620E00EFC09C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		04AE65152C39FD2D00EFC09C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				04AE64FC2C39620D00EFC09C /* Item.swift */,
 				040A51812C4296B300E5FA18 /* Model.swift */,
 				04AE65092C39632D00EFC09C /* Transaction.swift */,
 				04AE650B2C39667800EFC09C /* Account.swift */,
@@ -205,7 +202,6 @@
 				04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */,
 				04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */,
 				04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */,
-				04AE64FD2C39620D00EFC09C /* Item.swift in Sources */,
 				04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */,
 				04AE650A2C39632D00EFC09C /* Transaction.swift in Sources */,
 				04AE64F92C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift in Sources */,
