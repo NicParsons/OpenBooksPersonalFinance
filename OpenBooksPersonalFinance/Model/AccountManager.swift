@@ -4,6 +4,7 @@ import SwiftData
 class AccountManager {
 	var context: ModelContext
 	var accounts: [Account]
+	let numberOfSubcategoryPlaces: Int = 2
 
 	subscript(accountID: String) -> Account? {
 		return accounts.first(where: { $0.id == accountID } ) ?? nil
@@ -59,10 +60,18 @@ return nil
 	func increment(_ accountID: String) -> String {
 		let lastComponent = lastComponent(of: accountID)
 		let newSubcategoryInt = 1 + idAsInt(for: lastComponent)
-		let newSubcategory = String(newSubcategoryInt)
+		let newSubcategory = stringify(newSubcategoryInt)
 		let parentCategoryID = parentAccountID(of: accountID)
 		let prefix = parentCategoryID ?? ""
 		return prefix.appending(newSubcategory)
+	}
+
+	func stringify(_ subcategoryInteger: Int) -> String {
+		var string = String(subcategoryInteger)
+		while string.count < numberOfSubcategoryPlaces {
+			string = "0" + string
+		}
+		return string
 	}
 
 	func lastComponent(of accountID: String) -> String {
@@ -86,12 +95,13 @@ return accountID
 		} else {
 			// largest == nil which means
 			// no subcategories in this parent category
+			//TODO: Should make method for returning the first subcategory in a parent category.
 			if let parent = parentAccountID {
 				// this will be the first subcategory in the parent category
-				return parent.appending("01")
+				return parent.appending(stringify(1))
 			} else {
 				// this will be the first account ID ever
-				return "01"
+				return stringify(1)
 			} // end if parentAccountID
 		} // end if largest
 	}
