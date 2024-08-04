@@ -3,6 +3,6 @@ import SwiftData
 
 struct ContentView: View {
 	var body: some View {
-AccountTestListView()
+		AccountsTableView()
 	}
 }
