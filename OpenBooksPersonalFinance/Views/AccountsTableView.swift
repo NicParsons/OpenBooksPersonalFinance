@@ -13,7 +13,7 @@ struct AccountsTableView: View {
 	 var table: some View {
 		 Table(sortedAccounts, selection: $selection, sortOrder: $sortOrder) {
 			 TableColumn("ID", value: \.id, comparator: IDComparator()) { account in
-				 Text(account.id)
+				 Button(account.id, action: { parentAccountID = account.id } )
 			 }
 			 TableColumn("Name", value: \.name) { account in
 				 AccountNameColumnView(account: account)
