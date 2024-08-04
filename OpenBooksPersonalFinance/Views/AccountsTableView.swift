@@ -4,6 +4,7 @@ import SwiftData
 struct AccountsTableView: View {
 	@Environment(\.modelContext) private var context
 	@Query private var accounts: [Account]
+	@State private var parentAccountID: String? = nil
 	 @State private var selection = Set<Account.ID>()
 	@State private var sortOrder: [KeyPathComparator<Account>] = [
 		KeyPathComparator(\Account.id, order: .forward),
@@ -65,6 +66,8 @@ extension ComparisonResult {
 
 extension AccountsTableView {
 	var sortedAccounts: [Account] {
-		accounts.sorted(using: sortOrder)
+		return accounts
+			.filter({ $0.parentAccountID == parentAccountID } )
+			.sorted(using: sortOrder)
 	}
 }
