@@ -13,7 +13,7 @@ struct AccountsTableView: View {
 				 Text(account.id)
 			 }
 			 TableColumn("Name", value: \.name) { account in
-				 Text(account.name)
+				 AccountNameColumnView(account: account)
 			 } // column
 			 TableColumn("Hidden") { account in
 				 AccountHiddenColumnView(account: account)
@@ -25,6 +25,14 @@ struct AccountsTableView: View {
 		table
     } // body
 } // view
+
+struct AccountNameColumnView: View {
+	@Bindable var account: Account
+	var body: some View {
+		TextField("Name", text: $account.name)
+			.labelsHidden()
+	}
+}
 
 struct AccountHiddenColumnView: View {
 	@Bindable var account: Account
