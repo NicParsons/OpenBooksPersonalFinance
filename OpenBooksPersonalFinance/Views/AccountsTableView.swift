@@ -26,6 +26,16 @@ struct AccountsTableView: View {
 
     var body: some View {
 		table
+			.onDeleteCommand {
+				deleteSelectedAccounts(selection)
+			}
+			.toolbar {
+					ToolbarItem {
+						Button(action: addAccount) {
+							Label("Add Account", systemImage: "plus")
+						} // Button label closure
+					} // Toolbar item
+			} // toolbar
     } // body
 } // view
 
@@ -69,5 +79,33 @@ extension AccountsTableView {
 		return accounts
 			.filter({ $0.parentAccountID == parentAccountID } )
 			.sorted(using: sortOrder)
+	}
+
+	private func addAccount() {
+		let accountManager = AccountManager(context: context, accounts: accounts)
+		let newID = accountManager.newID(inParentCategory: parentAccountID)
+		withAnimation {
+			let newAccount = Account(id: newID, name: "New Account", parentAccountID: parentAccountID)
+			context.insert(newAccount)
+		}
+	}
+
+	private func deleteAccounts(at offsets: IndexSet) {
+		withAnimation {
+			for index in offsets {
+				context.delete(accounts[index])
+			}
+		}
+	}
+
+	private func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
+		let accountManager = AccountManager(context: context, accounts: accounts)
+		withAnimation {
+			for accountID in identifiers {
+				if let account = accountManager[accountID] {
+					context.delete(account)
+				}
+			}
+		}
 	}
 }
