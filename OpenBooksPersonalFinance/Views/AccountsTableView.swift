@@ -42,6 +42,11 @@ struct AccountsTableView: View {
 							Label("Add Account", systemImage: "plus")
 						} // Button label closure
 					} // Toolbar item
+				ToolbarItem {
+					Button(action: { deleteSelectedAccounts(selection) } ) {
+						Label("Delete Account", systemImage: "minus")
+					} // button label closure
+				} // toolbar item
 			} // toolbar
     } // body
 } // view
