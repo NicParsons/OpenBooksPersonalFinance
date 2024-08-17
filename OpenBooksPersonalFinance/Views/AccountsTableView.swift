@@ -4,17 +4,18 @@ import SwiftData
 struct AccountsTableView: View {
 	@Environment(\.modelContext) private var context
 	@Query private var accounts: [Account]
-	@State private var parentAccountID: String? = nil
+	var parentAccountID: String?
+	@State private var navigationPath: [Account] = []
 	 @State private var selection = Set<Account.ID>()
 	@State private var sortOrder: [KeyPathComparator<Account>] = [
 		KeyPathComparator(\Account.id, order: .forward),
 	]
 
 	 var table: some View {
-		 Table(sortedAccounts, selection: $selection, sortOrder: $sortOrder) {
+		 Table(relevantAccounts, selection: $selection, sortOrder: $sortOrder) {
 			 TableColumn("ID", value: \.id, comparator: IDComparator()) { account in
-				 Button(account.id, action: { parentAccountID = account.id } )
-			 }
+				 NavigationLink(account.id, value: account)
+			 } // TableColumn
 			 TableColumn("Name", value: \.name) { account in
 				 AccountNameColumnView(account: account)
 			 } // column
@@ -25,10 +26,16 @@ struct AccountsTableView: View {
 	 } // var
 
     var body: some View {
-		table
-			.onDeleteCommand {
-				deleteSelectedAccounts(selection)
-			}
+		NavigationStack(path: $navigationPath) {
+			table
+				.navigationDestination(for: Account.self) { account in
+					AccountsTableView(parentAccountID: account.id)
+				}
+				.onDeleteCommand {
+					deleteSelectedAccounts(selection)
+				} // delete command
+		} // nav stack
+		.navigationTitle(navigationTitle)
 			.toolbar {
 					ToolbarItem {
 						Button(action: addAccount) {
@@ -75,10 +82,26 @@ extension ComparisonResult {
 }
 
 extension AccountsTableView {
-	var sortedAccounts: [Account] {
+	/*
+	var parentAccountID: String? {
+		return navigationPath.last?.id ?? nil
+	}
+*/
+	var relevantAccounts: [Account] {
 		return accounts
 			.filter({ $0.parentAccountID == parentAccountID } )
 			.sorted(using: sortOrder)
+	}
+
+	private var navigationTitle: String {
+var title = "Accounts"
+		if let parentID = parentAccountID {
+			let accountManager = AccountManager(context: context, accounts: accounts)
+			if let parentAccount = accountManager[parentID] {
+				title += " – " + parentAccount.name
+			}
+		}
+		return title
 	}
 
 	private func addAccount() {
