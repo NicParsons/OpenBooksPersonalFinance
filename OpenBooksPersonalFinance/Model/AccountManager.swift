@@ -63,7 +63,7 @@ return nil
 		let newSubcategory = newSubcategoryInt.stringified(withMinStringLength: numberOfSubcategoryPlaces)
 		let parentCategoryID = parentAccountID(of: accountID)
 		let prefix = parentCategoryID ?? ""
-		return prefix.appending(newSubcategory)
+		return prefix.adding(newSubcategory)
 	}
 
 	func lastComponent(of accountID: String) -> String {
@@ -89,7 +89,7 @@ return accountID
 			// no subcategories in this parent category
 			//TODO: Should make method for returning the first subcategory in a parent category.
 			let parent = parentAccountID ?? ""
-			return parent.appending(1.stringified(withMinStringLength: numberOfSubcategoryPlaces))
+			return parent.adding(1.stringified(withMinStringLength: numberOfSubcategoryPlaces))
 		} // end if largest
 	}
 

@@ -18,15 +18,19 @@ class Account: Identifiable {
 }
 
 extension String {
-	mutating func appending(_ string: String, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) {
-		if self != "" || includingLeadingSeparator { self.append(separator) }
-		self.append(string)
+	func adding(_ string: String, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) -> String {
+		var base = self
+		if base != "" || includingLeadingSeparator { base.append(separator) }
+		base.append(string)
+		return base
 	}
 
-	mutating func appending(_ integer: Int, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) {
+	func adding(_ integer: Int, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) -> String {
+		var base = self
 		let string = String(integer)
-		if self != "" || includingLeadingSeparator { self.append(separator) }
-		self.append(string)
+		if base != "" || includingLeadingSeparator { base.append(separator) }
+		base.append(string)
+		return base
 	}
 
 	init(fromInt integer: Int, minStringLength: Int = 2) {
