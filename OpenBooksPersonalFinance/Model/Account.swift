@@ -6,7 +6,7 @@ class Account: Identifiable {
 	@Attribute(.unique) let id: String
 	var name: String
 	// parentAccountID should ideally be foreign key to accounts.ID
-	var parentAccountID: String?
+	var parentAccountID: Account.ID?
 	var hidden = false
 	var deletable = true
 
