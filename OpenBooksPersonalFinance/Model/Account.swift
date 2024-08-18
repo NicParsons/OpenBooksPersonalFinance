@@ -7,7 +7,8 @@ class Account: Identifiable {
 	var name: String
 	// parentAccountID should ideally be foreign key to accounts.ID
 	var parentAccountID: String?
-	var hidden: Bool = false
+	var hidden = false
+	var deletable = true
 
 	init(id: String, name: String, parentAccountID: String?) {
 		self.id = id
