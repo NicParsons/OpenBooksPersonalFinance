@@ -2,8 +2,18 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-	@State private var parentAccountID: String? = nil
+	@Environment(\.modelContext) private var context
+	@Query private var transactions: [Transaction]
+
 	var body: some View {
-		AccountsTableView(parentAccountID: parentAccountID)
-	}
-}
+		TabView {
+			Tab("Accounts", systemImage: "book.pages") {
+				AccountsTableContainerView()
+			} // tab
+
+			Tab("Transactions", systemImage: "book.pages.fill") {
+				TransactionsTableView(transactions: transactions)
+			} // Tab
+		} // TabView
+	} // body
+} // view

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TransactionsTableView: View {
-	@State private var transactions: [Transaction]
+	var transactions: [Transaction]
 	@State private var selection = Set<Transaction.ID>()
 	@State private var sortOrder: [KeyPathComparator<Transaction>] = [
 		KeyPathComparator(\Transaction.date, order: .reverse),
