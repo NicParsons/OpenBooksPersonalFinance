@@ -5,7 +5,7 @@ import SwiftData
 @Model
 class Transaction: Identifiable {
 	@Attribute(.unique) let id: Int
-	var date: Date = Date()
+	var date = Date()
 	var note: String = ""
 
 // amount and displayAmount would ideally be custom type Money
@@ -31,6 +31,16 @@ class Transaction: Identifiable {
 		self.localCurrency = localCurrency
 		self.displayAmount = displayAmount
 		self.foreignCurrency = foreignCurrency
+		self.sourceAccount = sourceAccount
+		self.destinationAccount = destinationAccount
+	}
+
+	init(id: Int, amount: Decimal, currency: Currency, sourceAccount: Account, destinationAccount: Account) {
+		self.id = id
+		self.amount = amount
+		self.localCurrency = currency
+		self.displayAmount = amount
+		self.foreignCurrency = currency
 		self.sourceAccount = sourceAccount
 		self.destinationAccount = destinationAccount
 	}
