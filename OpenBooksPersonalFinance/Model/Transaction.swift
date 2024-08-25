@@ -35,7 +35,7 @@ class Transaction: Identifiable {
 		self.destinationAccount = destinationAccount
 	}
 
-	init(id: Int, amount: Decimal, currency: Currency, sourceAccount: Account, destinationAccount: Account) {
+	init(id: Int, amount: Decimal = 0, currency: Currency, sourceAccount: Account, destinationAccount: Account) {
 		self.id = id
 		self.amount = amount
 		self.localCurrency = currency
