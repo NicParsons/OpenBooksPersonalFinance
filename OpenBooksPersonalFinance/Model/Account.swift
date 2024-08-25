@@ -20,30 +20,3 @@ class Account: Identifiable, Equatable {
 		self.parentAccountID = parentAccountID
 	}
 }
-
-extension String {
-	func adding(_ string: String, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) -> String {
-		var base = self
-		if base != "" || includingLeadingSeparator { base.append(separator) }
-		base.append(string)
-		return base
-	}
-
-	func adding(_ integer: Int, withSeparator separator: String = ".", includingLeadingSeparator: Bool = false) -> String {
-		var base = self
-		let string = String(integer)
-		if base != "" || includingLeadingSeparator { base.append(separator) }
-		base.append(string)
-		return base
-	}
-
-	init(fromInt integer: Int, minStringLength: Int = 2) {
-		self.init(format: "%0\(minStringLength)d", integer)
-	}
-}
-
-extension Int {
-	func stringified(withMinStringLength: Int = 2) -> String {
-		return String(format: "%0\(withMinStringLength)d", self)
-	}
-}
