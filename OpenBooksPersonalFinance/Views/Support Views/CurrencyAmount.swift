@@ -7,7 +7,7 @@ struct CurrencyAmount: View {
 		@Binding var currency: Currency
 		let prompt: String
 		var canChangeCurrency: Bool = false
-		let OB = OBLog()
+		let OB = OBLog("OB-Personal-Finance")
 
 		var body: some View {
 			HStack {

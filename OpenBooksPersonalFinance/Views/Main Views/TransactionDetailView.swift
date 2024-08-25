@@ -12,7 +12,13 @@ struct TransactionDetailView: View {
 
 				Divider()
 
-				
+				CurrencyAmount(title: "Transaction amount", 
+							   amount: $transaction.displayAmount,
+							   currency: $transaction.foreignCurrency,
+							   prompt: "Enter the amount in the currency of the transaction")
+
+				Divider()
+
 				AccountPicker(selected: $transaction.sourceAccount, title: "Source account")
 				Text("Where did the money come from e.g. for an expense, the credit card, bank account or cash, or for income, the relevant income account")
 				AccountPicker(selected: $transaction.sourceAccount, title: "Destination account")
