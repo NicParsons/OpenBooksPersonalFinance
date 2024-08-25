@@ -63,9 +63,11 @@ struct TransactionsTableView: View {
     var body: some View {
 		NavigationStack {
 			table
+			#if os(macOS)
 				.onDeleteCommand {
 					deleteSelectedTransactions(selection)
 				} // on delete
+			#endif
 
 				.inspector(isPresented: $inspectorISVisible) {
 					if let selectedTransactionID = selection.first {

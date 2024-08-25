@@ -31,9 +31,11 @@ struct AccountsTableView: View {
 				.navigationDestination(for: Account.self) { account in
 					AccountsTableView(parentAccountID: account.id)
 				}
+			#if os(macOS)
 				.onDeleteCommand {
 					deleteSelectedAccounts(selection)
 				} // delete command
+			#endif
 		} // nav stack
 		.navigationTitle(navigationTitle)
 			.toolbar {

@@ -15,5 +15,6 @@ struct ContentView: View {
 				TransactionsTableView(transactions: transactions)
 			} // Tab
 		} // TabView
+		.tabViewStyle(.sidebarAdaptable)
 	} // body
 } // view
