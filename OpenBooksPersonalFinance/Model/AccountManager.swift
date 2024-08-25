@@ -18,15 +18,21 @@ class AccountManager {
 		return accounts.filter( { $0.parentAccountID == accountID })
 	}
 
-	func allChildAccounts() -> [Account] {
-		let parents = parents()
-		return accounts.filter( { !parents.contains($0) } )
+	func allParentAccountIDs() -> [Account.ID] {
+		// because we are first filtering the array to exclude elements where parentAccountID = nil
+		// it is safe to unwrap parentAccountID as we know it will not be nil
+return accounts.filter({ $0.parentAccountID != nil })
+			.map ({ $0.parentAccountID! }) // unwrapped
 	}
 
 	func parents() -> [Account] {
-		let parentIDs = accounts.filter({ $0.parentAccountID != nil })
-			.map ({ $0.id })
+		let parentIDs = allParentAccountIDs()
 		return accounts.filter({ parentIDs.contains($0.id) })
+	}
+
+	func childlessAccounts() -> [Account] {
+		let parentIDs = allParentAccountIDs()
+		return accounts.filter( { !parentIDs.contains($0.id) } )
 	}
 
 	func siblingAccounts(of account: Account) -> [Account] {

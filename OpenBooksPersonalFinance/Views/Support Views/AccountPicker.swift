@@ -19,7 +19,7 @@ struct AccountPicker: View {
 extension AccountPicker {
 	var childAccounts: [Account] {
 		let manager = AccountManager(context: context, accounts: accounts)
-		let children = manager.allChildAccounts()
+		let children = manager.childlessAccounts()
 		return children
 	} // var
 } // extension
