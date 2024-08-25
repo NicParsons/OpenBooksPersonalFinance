@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TransactionsTableView: View {
-	var transactions: [Transaction]
+	@State var transactions: [Transaction]
 	@State private var selection = Set<Transaction.ID>()
 	@State private var sortOrder: [KeyPathComparator<Transaction>] = [
 		KeyPathComparator(\Transaction.date, order: .reverse),
@@ -27,7 +27,16 @@ struct TransactionsTableView: View {
 			// currency
 			// displayAmount
 			// currency
+
 			// sourceAccount
+			TableColumn("Source Account", value: \.sourceAccount) { transaction in
+				var sourceAccountBinding = Binding(
+					get: { transaction.sourceAccount },
+					set: { transaction.sourceAccount = $0 }
+				)
+				AccountPicker(selected: sourceAccountBinding, title: "Source")
+			} // column
+
 			// destination account
 		} // Table
 	} // var
