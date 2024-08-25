@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040A51822C4296B300E5FA18 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A51812C4296B300E5FA18 /* Model.swift */; };
 		0439D6CE2C749CDD00ACC003 /* TransactionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6CD2C749CDD00ACC003 /* TransactionsTableView.swift */; };
 		0439D6D02C794FF800ACC003 /* AccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6CF2C794FF800ACC003 /* AccountPicker.swift */; };
 		0439D6D22C7AE3EE00ACC003 /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6D12C7AE3EE00ACC003 /* TransactionDetailView.swift */; };
@@ -32,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		040A51812C4296B300E5FA18 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0439D6CD2C749CDD00ACC003 /* TransactionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableView.swift; sourceTree = "<group>"; };
 		0439D6CF2C794FF800ACC003 /* AccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPicker.swift; sourceTree = "<group>"; };
 		0439D6D12C7AE3EE00ACC003 /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 		04AE65152C39FD2D00EFC09C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				040A51812C4296B300E5FA18 /* Model.swift */,
 				04EEA8A42C7B1BB400A3290F /* AppPreferences.swift */,
 				04AE65092C39632D00EFC09C /* Transaction.swift */,
 				04EEA8A22C7B186F00A3290F /* TransactionManager.swift */,
@@ -238,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040A51822C4296B300E5FA18 /* Model.swift in Sources */,
 				04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */,
 				04AE65122C397DD800EFC09C /* TimePeriod.swift in Sources */,
 				0439D6D02C794FF800ACC003 /* AccountPicker.swift in Sources */,
