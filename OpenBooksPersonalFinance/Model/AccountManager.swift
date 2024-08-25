@@ -18,6 +18,17 @@ class AccountManager {
 		return accounts.filter( { $0.parentAccountID == accountID })
 	}
 
+	func allChildAccounts() -> [Account] {
+		let parents = parents()
+		return accounts.filter( { !parents.contains($0) } )
+	}
+
+	func parents() -> [Account] {
+		let parentIDs = accounts.filter({ $0.parentAccountID != nil })
+			.map ({ $0.id })
+		return accounts.filter({ parentIDs.contains($0.id) })
+	}
+
 	func siblingAccounts(of account: Account) -> [Account] {
 		accounts.filter( { $0.parentAccountID == account.parentAccountID } )
 	}

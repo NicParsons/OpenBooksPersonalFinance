@@ -1,18 +1,25 @@
-//
-//  AccountPicker.swift
-//  OpenBooksPersonalFinance
-//
-//  Created by Nicholas Parsons on 24/8/2024.
-//
-
 import SwiftUI
+import SwiftData
 
 struct AccountPicker: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+	@Environment(\.modelContext) private var context
+	@Query private var accounts: [Account]
+	@Binding var selected: Account
+	var title = "Account"
 
-#Preview {
-    AccountPicker()
-}
+    var body: some View {
+		Picker(title, selection: $selected) {
+			ForEach(childAccounts) { account in
+				Text(account.name).tag(account)
+			} // ForEach
+		} // Picker
+    } // body
+} // View
+
+extension AccountPicker {
+	var childAccounts: [Account] {
+		let manager = AccountManager(context: context, accounts: accounts)
+		let children = manager.allChildAccounts()
+		return children
+	} // var
+} // extension

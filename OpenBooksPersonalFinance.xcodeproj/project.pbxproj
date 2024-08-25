@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		040A51822C4296B300E5FA18 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A51812C4296B300E5FA18 /* Model.swift */; };
 		0439D6CE2C749CDD00ACC003 /* TransactionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6CD2C749CDD00ACC003 /* TransactionsTableView.swift */; };
+		0439D6D02C794FF800ACC003 /* AccountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6CF2C794FF800ACC003 /* AccountPicker.swift */; };
 		04AE64F92C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */; };
 		04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FA2C39620D00EFC09C /* ContentView.swift */; };
 		04AE64FF2C39620E00EFC09C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AE64FE2C39620E00EFC09C /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		040A51812C4296B300E5FA18 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0439D6CD2C749CDD00ACC003 /* TransactionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableView.swift; sourceTree = "<group>"; };
+		0439D6CF2C794FF800ACC003 /* AccountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPicker.swift; sourceTree = "<group>"; };
 		04AE64F52C39620D00EFC09C /* OpenBooksPersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBooksPersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBooksPersonalFinanceApp.swift; sourceTree = "<group>"; };
 		04AE64FA2C39620D00EFC09C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */,
 				04E55C792C5A63490032AA0C /* AccountTestListView.swift */,
 				04E55C772C57B3300032AA0C /* AccountRowView.swift */,
+				0439D6CF2C794FF800ACC003 /* AccountPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				040A51822C4296B300E5FA18 /* Model.swift in Sources */,
 				04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */,
 				04AE65122C397DD800EFC09C /* TimePeriod.swift in Sources */,
+				0439D6D02C794FF800ACC003 /* AccountPicker.swift in Sources */,
 				04AE650C2C39667800EFC09C /* Account.swift in Sources */,
 				04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */,
 				0439D6CE2C749CDD00ACC003 /* TransactionsTableView.swift in Sources */,
