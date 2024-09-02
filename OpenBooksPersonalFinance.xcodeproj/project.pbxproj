@@ -22,7 +22,6 @@
 		04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE65132C397FBE00EFC09C /* RepetitionFrequency.swift */; };
 		04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */; };
 		04AE651B2C3A249600EFC09C /* OBFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 04AE651A2C3A249600EFC09C /* OBFoundation */; };
-		04B3EF002C5F8DFD000ADB9A /* AccountsTableContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3EEFF2C5F8DFD000ADB9A /* AccountsTableContainerView.swift */; };
 		04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C752C4CAC4B0032AA0C /* AccountManager.swift */; };
 		04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C772C57B3300032AA0C /* AccountRowView.swift */; };
 		04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C792C5A63490032AA0C /* AccountTestListView.swift */; };
@@ -47,7 +46,6 @@
 		04AE65112C397DD800EFC09C /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		04AE65132C397FBE00EFC09C /* RepetitionFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepetitionFrequency.swift; sourceTree = "<group>"; };
 		04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableView.swift; sourceTree = "<group>"; };
-		04B3EEFF2C5F8DFD000ADB9A /* AccountsTableContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableContainerView.swift; sourceTree = "<group>"; };
 		04E55C752C4CAC4B0032AA0C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04E55C772C57B3300032AA0C /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
 		04E55C792C5A63490032AA0C /* AccountTestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTestListView.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 			children = (
 				04AE64FA2C39620D00EFC09C /* ContentView.swift */,
 				0439D6CD2C749CDD00ACC003 /* TransactionsTableView.swift */,
-				04B3EEFF2C5F8DFD000ADB9A /* AccountsTableContainerView.swift */,
 				04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */,
 				0439D6D12C7AE3EE00ACC003 /* TransactionDetailView.swift */,
 			);
@@ -243,7 +240,6 @@
 				0439D6D22C7AE3EE00ACC003 /* TransactionDetailView.swift in Sources */,
 				0439D6CE2C749CDD00ACC003 /* TransactionsTableView.swift in Sources */,
 				04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */,
-				04B3EF002C5F8DFD000ADB9A /* AccountsTableContainerView.swift in Sources */,
 				04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */,
 				04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */,
 				04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */,

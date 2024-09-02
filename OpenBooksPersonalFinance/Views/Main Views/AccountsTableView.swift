@@ -4,7 +4,6 @@ import SwiftData
 struct AccountsTableView: View {
 	@Environment(\.modelContext) private var context
 	@Query private var accounts: [Account]
-	var parentAccountID: Account.ID? = nil
 	@State private var navigationPath: [Account] = []
 	 @State private var selection = Set<Account.ID>()
 	@State private var sortOrder: [KeyPathComparator<Account>] = [
@@ -14,7 +13,11 @@ struct AccountsTableView: View {
 	 var table: some View {
 		 Table(relevantAccounts, selection: $selection, sortOrder: $sortOrder) {
 			 TableColumn("ID", value: \.id, comparator: IDComparator()) { account in
-				 NavigationLink(account.id, value: account)
+				 Button(account.id, action: {
+					 withAnimation {
+						 navigationPath.append(account)
+					 }
+				 })
 			 } // TableColumn
 			 TableColumn("Name", value: \.name) { account in
 				 AccountNameColumnView(account: account)
@@ -26,12 +29,9 @@ struct AccountsTableView: View {
 	 } // var
 
     var body: some View {
-		NavigationStack(path: $navigationPath) {
+		NavigationView {
 			table
-				.navigationDestination(for: Account.self) { account in
-					AccountsTableView(parentAccountID: account.id)
-				}
-			#if os(macOS)
+							#if os(macOS)
 				.onDeleteCommand {
 					deleteSelectedAccounts(selection)
 				} // delete command
@@ -39,6 +39,17 @@ struct AccountsTableView: View {
 		} // nav stack
 		.navigationTitle(navigationTitle)
 			.toolbar {
+				ToolbarItem {
+					Button(action: {
+						withAnimation {
+							navigationPath.removeLast()
+							return
+						}
+					}) {
+						Label("Back", systemImage: "arrowshape.backward")
+					}
+					.disabled(navigationPath.isEmpty)
+				} // toolbar item
 					ToolbarItem {
 						Button(action: addAccount) {
 							Label("Add Account", systemImage: "plus")
@@ -89,11 +100,10 @@ extension ComparisonResult {
 }
 
 extension AccountsTableView {
-	/*
-	var parentAccountID: String? {
+	var parentAccountID: Account.ID? {
 		return navigationPath.last?.id ?? nil
 	}
-*/
+
 	var relevantAccounts: [Account] {
 		return accounts
 			.filter({ $0.parentAccountID == parentAccountID } )
