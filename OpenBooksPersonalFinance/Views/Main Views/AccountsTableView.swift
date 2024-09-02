@@ -4,7 +4,7 @@ import SwiftData
 struct AccountsTableView: View {
 	@Environment(\.modelContext) private var context
 	@Query private var accounts: [Account]
-	var parentAccountID: Account.ID?
+	var parentAccountID: Account.ID? = nil
 	@State private var navigationPath: [Account] = []
 	 @State private var selection = Set<Account.ID>()
 	@State private var sortOrder: [KeyPathComparator<Account>] = [
