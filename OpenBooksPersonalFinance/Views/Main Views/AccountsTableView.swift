@@ -49,11 +49,13 @@ struct AccountsTableView: View {
 						Label("Back", systemImage: "arrowshape.backward")
 					}
 					.disabled(navigationPath.isEmpty)
+					.keyboardShortcut("[", modifiers: [.command])
 				} // toolbar item
 					ToolbarItem {
 						Button(action: addAccount) {
 							Label("Add Account", systemImage: "plus")
 						} // Button label closure
+						.keyboardShortcut("n", modifiers: [.command])
 					} // Toolbar item
 				ToolbarItem {
 					Button(action: { deleteSelectedAccounts(selection) } ) {
