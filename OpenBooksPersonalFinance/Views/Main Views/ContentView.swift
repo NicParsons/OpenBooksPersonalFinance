@@ -4,14 +4,15 @@ import SwiftData
 struct ContentView: View {
 	@Environment(\.modelContext) private var context
 	@Query private var transactions: [Transaction]
+	@SceneStorage("tabSelection") private var tabSelection: String?
 
 	var body: some View {
-		TabView {
-			Tab("Accounts", systemImage: "book.pages") {
+		TabView(selection: $tabSelection) {
+			Tab("Accounts", systemImage: "book.pages", value: "accounts") {
 				AccountsTableView()
 			} // tab
 
-			Tab("Transactions", systemImage: "book.pages.fill") {
+			Tab("Transactions", systemImage: "book.pages.fill", value: "transactions") {
 				TransactionsTableView(transactions: transactions)
 			} // Tab
 		} // TabView
