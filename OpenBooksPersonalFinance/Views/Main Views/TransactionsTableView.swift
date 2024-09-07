@@ -73,6 +73,7 @@ struct TransactionsTableView: View {
 					if let selectedTransactionID = selection.first {
 						let selectedTransaction: Binding<Transaction> = Binding(
 							// warning: force unwrap
+							// should be safe as the transaction with matching ID must exist else it could not be selected
 							get: { transactions.first(where: { $0.id == selectedTransactionID } )! },
 							set: {
 								// warning: force unwrap
