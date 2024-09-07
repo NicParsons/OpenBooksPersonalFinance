@@ -115,37 +115,46 @@ return accountID
 	func addAccount(named accountName: String = "New Account", in parentAccountID: Account.ID? = nil, deletable: Bool = true) -> Account {
 		let newID = newID(inParentCategory: parentAccountID)
 		let newAccount = Account(id: newID, name: accountName, parentAccountID: parentAccountID, isDeletable: deletable)
+		accounts.append(newAccount)
 			context.insert(newAccount)
 		myLogger.log("Created new account named \(newAccount.name) with ID \(newAccount.id).")
 		return newAccount
 	} // func
 
-	func addAccount(named accountName: String = "New Account", in parentAccount: Account? = nil, deletable: Bool = true) -> Account {
-		return addAccount(named: accountName, in: parentAccount?.id, deletable: deletable)
-	}
-
-	func deleteAccounts(at offsets: IndexSet) {
-			for index in offsets {
-				//TODO: only delete the account if it is deletable
-				context.delete(accounts[index])
-			}
+	func addAccount(named accountName: String = "New Account", in parentAccount: Account, deletable: Bool = true) -> Account {
+		return addAccount(named: accountName, in: parentAccount.id, deletable: deletable)
 	}
 
 	func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
 			for accountID in identifiers {
 				if let account = self[accountID] {
-					if account.isDeletable {
-						context.delete(account)
-						myLogger.log("Deleted account \(account.name) with ID \(account.id).")
-					} else {
-						myLogger.log("Could not delete account \(account.name) with ID \(account.id) as it is not deletable.")
-					} // end if
+					self.delete(account)
 				}
 			}
 	} // func
 
+	func delete(_ account: Account, ignoringDeletability: Bool = false) {
+		if account.isDeletable || ignoringDeletability {
+			context.delete(account)
+			myLogger.log("Deleted account \(account.name) with ID \(account.id).")
+		} else {
+			myLogger.log("Could not delete account \(account.name) with ID \(account.id) as it is not deletable.")
+		} // end if
+	} // func
+
+	func delete(_ accounts: [Account], ignoringDeletability: Bool = false) {
+		for account in accounts {
+			self.delete(account, ignoringDeletability: ignoringDeletability)
+		}
+	}
+
 	func createDefaultAccounts() -> Bool {
 // to be run on first launch to create default account structure
+		// start by deleting earlier accounts, at least for now
+		//TODO: Find way to check whether an existing account already exists
+		//TODO: account names should be unique
+		delete(accounts, ignoringDeletability: true)
+
 // start with assets
 		let assets = addAccount(named: "Assets", deletable: false)
 		let liquidAssets = addAccount(named: "Liquid assets", in: assets, deletable: false)
@@ -157,7 +166,7 @@ return accountID
 		let nonLiquidAssets = addAccount(named: "Non-liquid assets", in: assets, deletable: false)
 		let realProperty = addAccount(named: "Real property", in: nonLiquidAssets)
 		let shares = addAccount(named: "Shares", in: nonLiquidAssets)
-		let super = addAccount(named: "Superannuation", in: nonLiquidAssets)
+		let superAnnuation = addAccount(named: "Superannuation", in: nonLiquidAssets)
 
 		// liabilities
 		let liabilities = addAccount(named: "Liabilities", deletable: false)
@@ -190,6 +199,7 @@ return accountID
 
 		// capital
 		let capital = addAccount(named: "Capital", deletable: false)
+		myLogger.log("Created all default accounts.")
 		return true
 	} // func
 

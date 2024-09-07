@@ -4,7 +4,7 @@ import OBFoundation
 
 @main
 struct OpenBooksPersonalFinanceApp: App {
-	let preferences = AppPreferences()
+	@State private var firstLaunch = AppPreferences().firstLaunch
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
 			Account.self,
@@ -19,10 +19,16 @@ struct OpenBooksPersonalFinanceApp: App {
         }
     }()
 
+	#if DEBUG
+	init() {
+		AppPreferences().resetFirstLaunch()
+	}
+	#endif
+
     var body: some Scene {
         WindowGroup {
-			if preferences.firstLaunch {
-				FirstLaunchView()
+			if firstLaunch {
+				FirstLaunchView(visible: $firstLaunch)
 			} else {
 				ContentView()
 			}
