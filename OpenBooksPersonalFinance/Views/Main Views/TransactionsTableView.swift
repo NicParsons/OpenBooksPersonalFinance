@@ -61,31 +61,13 @@ struct TransactionsTableView: View {
 	} // var
 
     var body: some View {
-		NavigationStack {
+		NavigationView {
 			table
 			#if os(macOS)
 				.onDeleteCommand {
 					deleteSelectedTransactions(selection)
 				} // on delete
 			#endif
-
-				.inspector(isPresented: $inspectorISVisible) {
-					if let selectedTransactionID = selection.first {
-						let selectedTransaction: Binding<Transaction> = Binding(
-							// warning: force unwrap
-							// should be safe as the transaction with matching ID must exist else it could not be selected
-							get: { transactions.first(where: { $0.id == selectedTransactionID } )! },
-							set: {
-								// warning: force unwrap
-								let index = transactions.firstIndex(where: { $0.id == selectedTransactionID })!
-								transactions[index] = $0
-							} // setter
-						) // binding var
-
-						TransactionDetailView(transaction: selectedTransaction, visible: $inspectorISVisible)
-					} // if let
-				} // Inspector
-
 		} // NavStack
 		.navigationTitle(Text(navigationTitle))
 
@@ -102,6 +84,23 @@ struct TransactionsTableView: View {
 				} // button
 			} // toolbar item
 		} // toolbar
+
+		.inspector(isPresented: $inspectorISVisible) {
+			if let selectedTransactionID = selection.first {
+				let selectedTransaction: Binding<Transaction> = Binding(
+					// warning: force unwrap
+					// should be safe as the transaction with matching ID must exist else it could not be selected
+					get: { transactions.first(where: { $0.id == selectedTransactionID } )! },
+					set: {
+						// warning: force unwrap
+						let index = transactions.firstIndex(where: { $0.id == selectedTransactionID })!
+						transactions[index] = $0
+					} // setter
+				) // binding var
+
+				TransactionDetailView(transaction: selectedTransaction, visible: $inspectorISVisible)
+			} // if let
+		} // Inspector
 
     } // body
 } // View
