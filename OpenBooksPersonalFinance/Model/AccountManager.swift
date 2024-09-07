@@ -1,10 +1,12 @@
 import Foundation
 import SwiftData
+import OBFoundation
 
 class AccountManager {
 	var context: ModelContext
 	var accounts: [Account]
 	let numberOfSubcategoryPlaces: Int = 2
+	let myLogger = OBLog()
 
 	subscript(accountID: String) -> Account? {
 		return accounts.first(where: { $0.id == accountID } ) ?? nil
@@ -109,6 +111,87 @@ return accountID
 			return parent.adding(1.stringified(withMinStringLength: numberOfSubcategoryPlaces))
 		} // end if largest
 	}
+
+	func addAccount(named accountName: String = "New Account", in parentAccountID: Account.ID? = nil, deletable: Bool = true) -> Account {
+		let newID = newID(inParentCategory: parentAccountID)
+		let newAccount = Account(id: newID, name: accountName, parentAccountID: parentAccountID, isDeletable: deletable)
+			context.insert(newAccount)
+		myLogger.log("Created new account named \(newAccount.name) with ID \(newAccount.id).")
+		return newAccount
+	} // func
+
+	func addAccount(named accountName: String = "New Account", in parentAccount: Account? = nil, deletable: Bool = true) -> Account {
+		return addAccount(named: accountName, in: parentAccount?.id, deletable: deletable)
+	}
+
+	func deleteAccounts(at offsets: IndexSet) {
+			for index in offsets {
+				//TODO: only delete the account if it is deletable
+				context.delete(accounts[index])
+			}
+	}
+
+	func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
+			for accountID in identifiers {
+				if let account = self[accountID] {
+					if account.isDeletable {
+						context.delete(account)
+						myLogger.log("Deleted account \(account.name) with ID \(account.id).")
+					} else {
+						myLogger.log("Could not delete account \(account.name) with ID \(account.id) as it is not deletable.")
+					} // end if
+				}
+			}
+	} // func
+
+	func createDefaultAccounts() -> Bool {
+// to be run on first launch to create default account structure
+// start with assets
+		let assets = addAccount(named: "Assets", deletable: false)
+		let liquidAssets = addAccount(named: "Liquid assets", in: assets, deletable: false)
+		let cash = addAccount(named: "Cash", in: liquidAssets, deletable: false)
+		// create cash accounts for local currency
+		let bankAccounts = addAccount(named: "Bank accounts", in: liquidAssets, deletable: false)
+		let transactionAccount = addAccount(named: "Transaction account", in: bankAccounts)
+		let savingsAccount = addAccount(named: "Savings account", in: bankAccounts)
+		let nonLiquidAssets = addAccount(named: "Non-liquid assets", in: assets, deletable: false)
+		let realProperty = addAccount(named: "Real property", in: nonLiquidAssets)
+		let shares = addAccount(named: "Shares", in: nonLiquidAssets)
+		let super = addAccount(named: "Superannuation", in: nonLiquidAssets)
+
+		// liabilities
+		let liabilities = addAccount(named: "Liabilities", deletable: false)
+		let debtsOwing = addAccount(named: "Debts owing", in: liabilities, deletable: false)
+		let creditCards = addAccount(named: "Credit cards", in: debtsOwing)
+		addAccount(named: "Amex", in: creditCards)
+		let shortTermDebt = addAccount(named: "Short-term debt", in: liabilities, deletable: false)
+		let longTermDebt = addAccount(named: "Long-term debt", in: liabilities, deletable: false)
+
+		// income
+		let income = addAccount(named: "Income", deletable: false)
+		let salary = addAccount(named: "Salary", in: income)
+		let interestIncome = addAccount(named: "Interest income", in: income)
+		let otherIncome = addAccount(named: "Income (other)", in: income)
+
+		// expenses
+		let expenses = addAccount(named: "Expenses", deletable: false)
+		let household = addAccount(named: "Household", in: expenses)
+		let food = addAccount(named: "Food", in: expenses)
+		addAccount(named: "Groceries", in: food)
+		let boughtMeals = addAccount(named: "Bought meals", in: food)
+		addAccount(named: "Deliveries", in: boughtMeals)
+		addAccount(named: "Work lunches", in: boughtMeals)
+		addAccount(named: "Eating out", in: boughtMeals)
+		addAccount(named: "Personal", in: expenses)
+		addAccount(named: "Medical", in: expenses)
+		addAccount(named: "Finance", in: expenses)
+		addAccount(named: "Gifts and celebrations", in: expenses)
+		addAccount(named: "Vacation", in: expenses)
+
+		// capital
+		let capital = addAccount(named: "Capital", deletable: false)
+		return true
+	} // func
 
 	init(context: ModelContext, accounts: [Account]) {
 		self.context = context
