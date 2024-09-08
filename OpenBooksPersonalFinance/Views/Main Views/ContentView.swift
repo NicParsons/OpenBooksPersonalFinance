@@ -8,19 +8,19 @@ struct ContentView: View {
 
 	var body: some View {
 		TabView(selection: $tabSelection) {
-			Tab("Accounts", systemImage: "book.pages", value: "accounts") {
-				AccountsTableView()
-			} // tab
-
 			Tab("Transactions", systemImage: "book.pages.fill", value: "transactions") {
 				TransactionsTableView(transactions: transactions)
 			} // Tab
-		} // TabView
+
+			Tab("Accounts", systemImage: "book.pages", value: "accounts") {
+				AccountsTableView()
+			} // tab
+					} // TabView
 		.tabViewStyle(.sidebarAdaptable)
 #if DEBUG
 		.onAppear {
 			let transactionManager = TransactionManager(transactions, context: context)
-			transactionManager.deleteAllTransactions()
+			// transactionManager.deleteAllTransactions()
 		}
 		#endif
 	} // body
