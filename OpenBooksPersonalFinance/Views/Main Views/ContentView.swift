@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import OBFoundation
 
 struct ContentView: View {
 	@Environment(\.modelContext) private var context
@@ -15,6 +16,12 @@ struct ContentView: View {
 			Tab("Accounts", systemImage: "book.pages", value: "accounts") {
 				AccountsTableView()
 			} // tab
+
+#if DEBUG
+			Tab("Log", systemImage: "envelope", value: "log") {
+				OBLogTableView()
+			}
+			#endif
 					} // TabView
 		.tabViewStyle(.sidebarAdaptable)
 #if DEBUG
