@@ -25,12 +25,13 @@ struct TransactionDetailView: View {
 
 				AccountPicker(selected: $transaction.destinationAccount, title: "Destination account")
 				Text("Where did the money go to e.g. for an expense, the relevant expense account, or for income, the bank account into which the money was paid")
-
+/* done button doesn't seem to achieve anything
 				Spacer()
 
 				Button("Done") {
 					visible = false
 				} // Button
+ */
 			} // Form
 			.padding()
 		} // VStack
