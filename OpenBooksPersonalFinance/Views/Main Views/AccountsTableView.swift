@@ -35,6 +35,14 @@ struct AccountsTableView: View {
     var body: some View {
 		NavigationView {
 			table
+				.onKeyPress(.return, action: {
+					if let selectedAccount = firstSelectedAccount {
+						withAnimation {
+							navigationPath.append(selectedAccount)
+						} // animation
+					} // if let
+					return .handled
+				}) // keypress
 							#if os(macOS)
 				.onDeleteCommand {
 					deleteSelectedAccounts(selection)
