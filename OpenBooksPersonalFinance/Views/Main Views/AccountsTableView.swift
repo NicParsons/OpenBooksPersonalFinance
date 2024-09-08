@@ -62,7 +62,7 @@ struct AccountsTableView: View {
 					Button(action: { deleteSelectedAccounts(selection) } ) {
 						Label("Delete Account", systemImage: "minus")
 					} // button label closure
-					.disabled(parentAccountID == nil)
+					.disabled(!selectedAccountsAreDeletable || selection.isEmpty)
 				} // toolbar item
 			} // toolbar
     } // body
@@ -112,6 +112,19 @@ extension AccountsTableView {
 		return accounts
 			.filter({ $0.parentAccountID == parentAccountID } )
 			.sorted(using: sortOrder)
+	}
+
+	var selectedAccounts: [Account] {
+		return accounts
+			.filter({ selection.contains($0.id) })
+	}
+
+	var selectedAccountsAreDeletable: Bool {
+		var areDeletable = true
+		for account in selectedAccounts {
+			if !account.isDeletable { areDeletable = false }
+		}
+		return areDeletable
 	}
 
 	private var navigationTitle: String {
