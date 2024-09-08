@@ -21,7 +21,7 @@ struct OpenBooksPersonalFinanceApp: App {
 
 	#if DEBUG
 	init() {
-		AppPreferences().resetFirstLaunch()
+		// AppPreferences().resetFirstLaunch()
 	}
 	#endif
 

@@ -108,20 +108,13 @@ struct TransactionsTableView: View {
 extension TransactionsTableView {
 	var orderedTransactions: [Transaction] {
 		return transactions
-			.sorted(by: { $0.date > $1.date } )
+			.sorted(using: sortOrder)
 	}
 
 	private func addTransaction() {
-		let manager = TransactionManager(transactions)
-		let newID = manager.newID()
-		let preferences = AppPreferences()
-		let currency = preferences.defaultCurrency
-		let defaultAccount = Account(id: "00", name: "Select an account", parentAccountID: nil)
-
+		let manager = TransactionManager(transactions, context: context)
 		withAnimation {
-			let newTransaction = Transaction(id: newID, currency: currency, sourceAccount: defaultAccount, destinationAccount: defaultAccount)
-			transactions.append(newTransaction)
-			context.insert(newTransaction)
+			let newTransaction = manager.newTransaction()
 			selection.removeAll()
 			selection.insert(newTransaction.id)
 			inspectorISVisible = true
@@ -129,21 +122,18 @@ extension TransactionsTableView {
 	} // func
 
 	private func deleteTransactions(at offsets: IndexSet) {
+		let manager = TransactionManager(transactions, context: context)
 		withAnimation {
 			for index in offsets {
-				context.delete(transactions[index])
+				manager.delete(transactions[index])
 			} // for loop
 		} // animation
 	} // func
 
 	private func deleteSelectedTransactions(_ identifiers: Set<Transaction.ID>) {
-		let manager = TransactionManager(transactions)
+		let manager = TransactionManager(transactions, context: context)
 		withAnimation {
-			for transactionID in identifiers {
-				if let transaction = manager[transactionID] {
-					context.delete(transaction)
-				} // if let
-			} // for loop
+			manager.deleteSelectedTransactions(identifiers)
 		} // animation
 	} // func
 } // extension
