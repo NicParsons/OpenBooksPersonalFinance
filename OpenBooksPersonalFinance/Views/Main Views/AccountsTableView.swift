@@ -55,12 +55,14 @@ struct AccountsTableView: View {
 						Button(action: addAccount) {
 							Label("Add Account", systemImage: "plus")
 						} // Button label closure
-						.keyboardShortcut("n", modifiers: [.command])
+						.disabled(parentAccountID == nil)
+						.keyboardShortcut("n", modifiers: [.command, .option])
 					} // Toolbar item
 				ToolbarItem {
 					Button(action: { deleteSelectedAccounts(selection) } ) {
 						Label("Delete Account", systemImage: "minus")
 					} // button label closure
+					.disabled(parentAccountID == nil)
 				} // toolbar item
 			} // toolbar
     } // body

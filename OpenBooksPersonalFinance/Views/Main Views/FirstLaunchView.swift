@@ -18,8 +18,8 @@ struct FirstLaunchView: View {
 				Spacer()
 
 				Button("Done", action: {
+					let manager = AccountManager(context: context, accounts: accounts)
 					withAnimation {
-						let manager = AccountManager(context: context, accounts: accounts)
 						if manager.createDefaultAccounts() {
 							preferences.firstLaunch = false
 							myLogger.log("Set first launch to false.")
