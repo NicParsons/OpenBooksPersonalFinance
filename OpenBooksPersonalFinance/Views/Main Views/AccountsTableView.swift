@@ -23,9 +23,12 @@ struct AccountsTableView: View {
 			 TableColumn("Name", value: \.name) { account in
 				 AccountNameColumnView(account: account)
 			 } // column
+
+			 /* not needed given inspector
 			 TableColumn("Hidden") { account in
 				 AccountHiddenColumnView(account: account)
 			 }
+			  */
 		 } // Table
 	 } // var
 
