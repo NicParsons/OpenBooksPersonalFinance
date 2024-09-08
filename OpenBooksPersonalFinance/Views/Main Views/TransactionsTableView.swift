@@ -76,6 +76,7 @@ struct TransactionsTableView: View {
 				Button(action: addTransaction) {
 					Label("Add transaction", systemImage: "plus")
 				} // button
+				.keyboardShortcut("n", modifiers: .command)
 			} // toolbar item
 
 			ToolbarItem {
@@ -116,6 +117,7 @@ extension TransactionsTableView {
 		withAnimation {
 			let newTransaction = manager.newTransaction()
 			selection.removeAll()
+			transactions.append(newTransaction)
 			selection.insert(newTransaction.id)
 			inspectorISVisible = true
 		} // animation
