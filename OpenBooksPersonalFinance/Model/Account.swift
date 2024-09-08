@@ -9,6 +9,7 @@ class Account: Identifiable, Equatable, Comparable {
 	var parentAccountID: Account.ID?
 	var hidden = false
 	var isDeletable = true
+	var isNotDeletable: Bool { !isDeletable }
 
 	static func ==(lhs: Account, rhs: Account) -> Bool {
 		return lhs.id == rhs.id
