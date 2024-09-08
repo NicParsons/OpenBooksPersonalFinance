@@ -9,6 +9,7 @@ struct AccountsTableView: View {
 	@State private var sortOrder: [KeyPathComparator<Account>] = [
 		KeyPathComparator(\Account.id, order: .forward),
 	]
+	@SceneStorage("accountInspectorIsVisible") private var inspectorIsVisible = true
 
 	 var table: some View {
 		 Table(relevantAccounts, selection: $selection, sortOrder: $sortOrder) {
@@ -65,6 +66,14 @@ struct AccountsTableView: View {
 					.disabled(!selectedAccountsAreDeletable || selection.isEmpty)
 				} // toolbar item
 			} // toolbar
+
+			.inspector(isPresented: $inspectorIsVisible) {
+				if let selectedAccount = firstSelectedAccount {
+					AccountDetailView(account: selectedAccount, visible: $inspectorIsVisible)
+				} else {
+					Text("Select an account.")
+				}
+			} // inspector
     } // body
 } // view
 
@@ -125,6 +134,10 @@ extension AccountsTableView {
 			if !account.isDeletable { areDeletable = false }
 		}
 		return areDeletable
+	}
+
+	var firstSelectedAccount: Account? {
+		return selectedAccounts.first
 	}
 
 	private var navigationTitle: String {
