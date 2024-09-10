@@ -17,6 +17,12 @@ struct ContentView: View {
 				AccountsTableView()
 			} // tab
 
+			#if os(iOS)
+			Tab("Settings", systemImage: "gear", value: "settings") {
+				SettingsView()
+			}
+			#endif
+
 #if DEBUG
 			Tab("Log", systemImage: "envelope", value: "log") {
 				OBLogTableView()
@@ -26,7 +32,7 @@ struct ContentView: View {
 		.tabViewStyle(.sidebarAdaptable)
 #if DEBUG
 		.onAppear {
-			let transactionManager = TransactionManager(transactions, context: context)
+			// let transactionManager = TransactionManager(transactions, context: context)
 			// transactionManager.deleteAllTransactions()
 		}
 		#endif

@@ -24,6 +24,7 @@
 		04AE651B2C3A249600EFC09C /* OBFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 04AE651A2C3A249600EFC09C /* OBFoundation */; };
 		04CE477E2C8D47B9008A8EA2 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE477D2C8D47B9008A8EA2 /* AccountDetailView.swift */; };
 		04D1779B2C8C0C37005F176C /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1779A2C8C0C37005F176C /* FirstLaunchView.swift */; };
+		04D4146F2C8E4045001C9697 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D4146E2C8E4045001C9697 /* SettingsView.swift */; };
 		04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C752C4CAC4B0032AA0C /* AccountManager.swift */; };
 		04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C772C57B3300032AA0C /* AccountRowView.swift */; };
 		04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C792C5A63490032AA0C /* AccountTestListView.swift */; };
@@ -50,6 +51,7 @@
 		04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableView.swift; sourceTree = "<group>"; };
 		04CE477D2C8D47B9008A8EA2 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		04D1779A2C8C0C37005F176C /* FirstLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchView.swift; sourceTree = "<group>"; };
+		04D4146E2C8E4045001C9697 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04E55C752C4CAC4B0032AA0C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04E55C772C57B3300032AA0C /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
 		04E55C792C5A63490032AA0C /* AccountTestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTestListView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				04AE65162C3A1EAA00EFC09C /* AccountsTableView.swift */,
 				04CE477D2C8D47B9008A8EA2 /* AccountDetailView.swift */,
 				04D1779A2C8C0C37005F176C /* FirstLaunchView.swift */,
+				04D4146E2C8E4045001C9697 /* SettingsView.swift */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				04AE65142C397FBE00EFC09C /* RepetitionFrequency.swift in Sources */,
 				04AE65122C397DD800EFC09C /* TimePeriod.swift in Sources */,
 				0439D6D02C794FF800ACC003 /* AccountPicker.swift in Sources */,
+				04D4146F2C8E4045001C9697 /* SettingsView.swift in Sources */,
 				04AE650C2C39667800EFC09C /* Account.swift in Sources */,
 				04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */,
 				0439D6D22C7AE3EE00ACC003 /* TransactionDetailView.swift in Sources */,
