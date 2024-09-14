@@ -1,6 +1,6 @@
 import Foundation
 
-enum TimePeriod: String, CaseIterable {
+enum TimePeriod: String, CaseIterable, Codable {
 	// maybe should just be string type
 	// and have function that switches over the cases and returns numberOfDays
 	case daily, weekly, fortnightly, monthly, yearly, times
@@ -16,7 +16,7 @@ enum TimePeriod: String, CaseIterable {
 		case .monthly:
 			return 30
 		case .yearly:
-			return 365
+			return 365 // but what about leap year: Calendar?
 		} // switch
 	} // computed property
 } // enum
