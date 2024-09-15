@@ -113,7 +113,7 @@ extension TransactionsTableView {
 	}
 
 	private func addTransaction() {
-		let manager = TransactionManager(transactions, context: context)
+		let manager = TransactionManager(context: context)
 		withAnimation {
 			let newTransaction = manager.newTransaction()
 			selection.removeAll()
@@ -124,7 +124,7 @@ extension TransactionsTableView {
 	} // func
 
 	private func deleteTransactions(at offsets: IndexSet) {
-		let manager = TransactionManager(transactions, context: context)
+		let manager = TransactionManager(context: context)
 		withAnimation {
 			for index in offsets {
 				manager.delete(transactions[index])
@@ -133,7 +133,7 @@ extension TransactionsTableView {
 	} // func
 
 	private func deleteSelectedTransactions(_ identifiers: Set<Transaction.ID>) {
-		let manager = TransactionManager(transactions, context: context)
+		let manager = TransactionManager(context: context)
 		withAnimation {
 			manager.deleteSelectedTransactions(identifiers)
 		} // animation

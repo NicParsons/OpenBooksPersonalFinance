@@ -12,6 +12,10 @@ class AccountManager {
 		return accounts.first(where: { $0.id == accountID } ) ?? nil
 	}
 
+	static var all: FetchDescriptor<Account> {
+		FetchDescriptor<Account>()
+	}
+
 	func childAccounts(of account: Account) -> [Account] {
 		return accounts.filter( { $0.parentAccountID == account.id })
 	}
@@ -203,8 +207,13 @@ return accountID
 		return true
 	} // func
 
-	init(context: ModelContext, accounts: [Account]) {
+	init(context: ModelContext) {
 		self.context = context
-		self.accounts = accounts
-	}
-}
+		do {
+			self.accounts = try context.fetch(AccountManager.all)
+		} catch {
+			OBLog().error("Unable to fetch Account models when initialising AccountManager.")
+			self.accounts = []
+		} // do try catch
+	} // init
+} // class

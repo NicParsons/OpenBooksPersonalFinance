@@ -13,6 +13,7 @@
 		0439D6D42C7AE8FA00ACC003 /* CurrencyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6D32C7AE8FA00ACC003 /* CurrencyAmount.swift */; };
 		0439D6D62C7AE98B00ACC003 /* CurrencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439D6D52C7AE98B00ACC003 /* CurrencyPicker.swift */; };
 		04806A142C9511E8008A2D67 /* BudgetLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04806A132C9511E8008A2D67 /* BudgetLineItem.swift */; };
+		04806A162C966DB2008A2D67 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04806A152C966DB2008A2D67 /* Model.swift */; };
 		04AE64F92C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */; };
 		04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE64FA2C39620D00EFC09C /* ContentView.swift */; };
 		04AE64FF2C39620E00EFC09C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AE64FE2C39620E00EFC09C /* Assets.xcassets */; };
@@ -28,8 +29,6 @@
 		04D4146F2C8E4045001C9697 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D4146E2C8E4045001C9697 /* SettingsView.swift */; };
 		04D414712C9045A2001C9697 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D414702C9045A2001C9697 /* Budget.swift */; };
 		04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C752C4CAC4B0032AA0C /* AccountManager.swift */; };
-		04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C772C57B3300032AA0C /* AccountRowView.swift */; };
-		04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E55C792C5A63490032AA0C /* AccountTestListView.swift */; };
 		04EEA8A32C7B186F00A3290F /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEA8A22C7B186F00A3290F /* TransactionManager.swift */; };
 		04EEA8A52C7B1BB400A3290F /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEA8A42C7B1BB400A3290F /* AppPreferences.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +40,7 @@
 		0439D6D32C7AE8FA00ACC003 /* CurrencyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAmount.swift; sourceTree = "<group>"; };
 		0439D6D52C7AE98B00ACC003 /* CurrencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPicker.swift; sourceTree = "<group>"; };
 		04806A132C9511E8008A2D67 /* BudgetLineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetLineItem.swift; sourceTree = "<group>"; };
+		04806A152C966DB2008A2D67 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		04AE64F52C39620D00EFC09C /* OpenBooksPersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBooksPersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AE64F82C39620D00EFC09C /* OpenBooksPersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBooksPersonalFinanceApp.swift; sourceTree = "<group>"; };
 		04AE64FA2C39620D00EFC09C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,8 +57,6 @@
 		04D4146E2C8E4045001C9697 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04D414702C9045A2001C9697 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		04E55C752C4CAC4B0032AA0C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
-		04E55C772C57B3300032AA0C /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
-		04E55C792C5A63490032AA0C /* AccountTestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTestListView.swift; sourceTree = "<group>"; };
 		04EEA8A22C7B186F00A3290F /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
 		04EEA8A42C7B1BB400A3290F /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +114,7 @@
 		04AE65152C39FD2D00EFC09C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04806A152C966DB2008A2D67 /* Model.swift */,
 				04EEA8A42C7B1BB400A3290F /* AppPreferences.swift */,
 				04AE65092C39632D00EFC09C /* Transaction.swift */,
 				04EEA8A22C7B186F00A3290F /* TransactionManager.swift */,
@@ -148,8 +147,6 @@
 		04EEA8A02C7AF88600A3290F /* Support Views */ = {
 			isa = PBXGroup;
 			children = (
-				04E55C792C5A63490032AA0C /* AccountTestListView.swift */,
-				04E55C772C57B3300032AA0C /* AccountRowView.swift */,
 				0439D6D32C7AE8FA00ACC003 /* CurrencyAmount.swift */,
 				0439D6D52C7AE98B00ACC003 /* CurrencyPicker.swift */,
 				0439D6CF2C794FF800ACC003 /* AccountPicker.swift */,
@@ -255,12 +252,11 @@
 				04D414712C9045A2001C9697 /* Budget.swift in Sources */,
 				04D4146F2C8E4045001C9697 /* SettingsView.swift in Sources */,
 				04AE650C2C39667800EFC09C /* Account.swift in Sources */,
-				04E55C7A2C5A63490032AA0C /* AccountTestListView.swift in Sources */,
 				0439D6D22C7AE3EE00ACC003 /* TransactionDetailView.swift in Sources */,
 				0439D6CE2C749CDD00ACC003 /* TransactionsTableView.swift in Sources */,
 				04AE64FB2C39620D00EFC09C /* ContentView.swift in Sources */,
-				04E55C782C57B3300032AA0C /* AccountRowView.swift in Sources */,
 				04E55C762C4CAC4B0032AA0C /* AccountManager.swift in Sources */,
+				04806A162C966DB2008A2D67 /* Model.swift in Sources */,
 				04AE65172C3A1EAA00EFC09C /* AccountsTableView.swift in Sources */,
 				04AE650A2C39632D00EFC09C /* Transaction.swift in Sources */,
 				04EEA8A32C7B186F00A3290F /* TransactionManager.swift in Sources */,

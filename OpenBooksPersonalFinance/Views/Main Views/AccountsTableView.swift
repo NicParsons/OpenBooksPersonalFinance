@@ -154,7 +154,7 @@ extension AccountsTableView {
 	private var navigationTitle: String {
 var title = "Accounts"
 		if let parentID = parentAccountID {
-			let accountManager = AccountManager(context: context, accounts: accounts)
+			let accountManager = AccountManager(context: context)
 			if let parentAccount = accountManager[parentID] {
 				title += " – " + parentAccount.name
 			}
@@ -163,7 +163,7 @@ var title = "Accounts"
 	}
 
 	private func addAccount() {
-		let accountManager = AccountManager(context: context, accounts: accounts)
+		let accountManager = AccountManager(context: context)
 		let newID = accountManager.newID(inParentCategory: parentAccountID)
 		withAnimation {
 			let newAccount = Account(id: newID, name: "New Account", parentAccountID: parentAccountID)
@@ -180,7 +180,7 @@ var title = "Accounts"
 	}
 
 	private func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
-		let accountManager = AccountManager(context: context, accounts: accounts)
+		let accountManager = AccountManager(context: context)
 		withAnimation {
 			for accountID in identifiers {
 				if let account = accountManager[accountID] {

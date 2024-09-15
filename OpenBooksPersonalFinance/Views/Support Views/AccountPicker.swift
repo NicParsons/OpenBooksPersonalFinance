@@ -18,7 +18,7 @@ struct AccountPicker: View {
 
 extension AccountPicker {
 	var childAccounts: [Account] {
-		let manager = AccountManager(context: context, accounts: accounts)
+		let manager = AccountManager(context: context)
 		let children = manager.childlessAccounts()
 		return children
 	} // var

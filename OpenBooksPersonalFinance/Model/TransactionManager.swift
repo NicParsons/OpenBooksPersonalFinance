@@ -2,13 +2,18 @@ import Foundation
 import OBFoundation
 import SwiftData
 
-class TransactionManager {
+@Observable
+final class TransactionManager {
 	var transactions: [Transaction]
 	let context: ModelContext
 	let myLogger = OBLog()
 
 	subscript(_ transactionID: Transaction.ID) -> Transaction? {
 		return transactions.first(where: { $0.id == transactionID } )
+	}
+
+	static var all: FetchDescriptor<Transaction> {
+		FetchDescriptor<Transaction>()
 	}
 
 	func newID() -> Int {
@@ -59,8 +64,13 @@ return newTransaction
 		myLogger.log("Deleted all transactions.")
 	}
 
-	init(_ transactions: [Transaction], context: ModelContext) {
-		self.transactions = transactions
+	init(context: ModelContext) {
 		self.context = context
-	}
+		do {
+			self.transactions = try context.fetch(TransactionManager.all)
+		} catch {
+			OBLog().error("Enable to fetch Transaction models from the ModelContext.")
+			self.transactions = []
+		} // do try catch
+	} // init
 } // class
