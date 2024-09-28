@@ -11,6 +11,9 @@ class Account: Identifiable, Equatable, Comparable {
 	var isDeletable = true
 	var isNotDeletable: Bool { !isDeletable }
 
+	@Relationship var outgoingTransactions = [Transaction]()
+	@Relationship var incomingTransactions = [Transaction]()
+
 	static func ==(lhs: Account, rhs: Account) -> Bool {
 		return lhs.id == rhs.id
 	}

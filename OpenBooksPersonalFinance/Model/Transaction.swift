@@ -16,7 +16,9 @@ class Transaction: Identifiable {
 	var foreignCurrency: Currency
 
 // need to consider whether to do sourceAccount and destinationAccount or do proper journal entries
+	@Relationship(inverse: \Account.outgoingTransactions)
 	var sourceAccount: Account
+	@Relationship(inverse: \Account.incomingTransactions)
 	var destinationAccount: Account
 
 	var reconciledSource: Bool = false
