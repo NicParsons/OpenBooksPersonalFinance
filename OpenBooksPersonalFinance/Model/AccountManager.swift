@@ -16,6 +16,13 @@ class AccountManager {
 		FetchDescriptor<Account>()
 	}
 
+	func totalCredits(for account: Account, from startDate: Date, to endDate: Date) -> Decimal {
+		let relevantTransactions = account.incomingTransactions.filter({
+			$0.date >= startDate && $0.date <= endDate
+		})
+		return relevantTransactions.sum(\.amount)
+	}
+
 	func childAccounts(of account: Account) -> [Account] {
 		return accounts.filter( { $0.parentAccountID == account.id })
 	}
@@ -217,3 +224,15 @@ return accountID
 		} // do try catch
 	} // init
 } // class
+
+extension Sequence where Element: AdditiveArithmetic {
+	func sum() -> Element {
+		reduce(.zero, +)
+	}
+}
+
+extension Sequence {
+	func sum<T: AdditiveArithmetic>(_ predicate: (Element) -> T) -> T {
+		reduce(.zero) { $0 + predicate($1) }
+	}
+}
