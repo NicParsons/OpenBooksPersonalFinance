@@ -23,6 +23,13 @@ class AccountManager {
 		return relevantTransactions.sum(\.amount)
 	}
 
+	func totalDebits(for account: Account, from startDate: Date, to endDate: Date) -> Decimal {
+		let relevantTransactions = account.outgoingTransactions.filter({
+			$0.date >= startDate && $0.date <= endDate
+		})
+		return relevantTransactions.sum(\.amount)
+	}
+
 	func childAccounts(of account: Account) -> [Account] {
 		return accounts.filter( { $0.parentAccountID == account.id })
 	}
