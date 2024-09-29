@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import OBFoundation
 
 @Model
 class Account: Identifiable, Equatable, Comparable {
@@ -13,6 +14,8 @@ class Account: Identifiable, Equatable, Comparable {
 
 	@Relationship var outgoingTransactions = [Transaction]()
 	@Relationship var incomingTransactions = [Transaction]()
+
+	@Relationship(deleteRule: .cascade) var openingBalance: OpeningBalance?
 
 	static func ==(lhs: Account, rhs: Account) -> Bool {
 		return lhs.id == rhs.id
