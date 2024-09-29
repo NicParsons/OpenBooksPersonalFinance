@@ -30,6 +30,15 @@ class AccountManager {
 		return relevantTransactions.sum(\.amount)
 	}
 
+	func movement(in account: Account, from startDate: Date, to endDate: Date) -> Decimal {
+		myLogger.debug("Calculating the movement in \(account.name) from \(startDate.formatted()) to \(endDate.formatted()).")
+		let credits = totalCredits(for: account, from: startDate, to: endDate)
+		myLogger.debug("The credits were \(credits.formatted()).")
+		let debits = totalDebits(for: account, from: startDate, to: endDate)
+		myLogger.debug("The debits were \(debits.formatted()).")
+		return credits - debits
+	}
+
 	func childAccounts(of account: Account) -> [Account] {
 		return accounts.filter( { $0.parentAccountID == account.id })
 	}
