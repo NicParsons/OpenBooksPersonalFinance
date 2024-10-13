@@ -17,7 +17,9 @@ class Account: Identifiable, Equatable, Comparable {
 
 	@Relationship(deleteRule: .cascade) var openingBalance: OpeningBalance?
 
-	func totalCredits(from startDate: Date?, to endDate: Date?) -> Decimal {
+	func totalTransactions(from startDate: Date?, to endDate: Date?, transactionType: TransactionType) -> Decimal {
+		//TODO: Add parameters for currency conversion, and including child accounts
+		var relevantTransactions = transactionType == .credit ? incomingTransactions : outgoingTransactions
 		let predicate: Predicate<Transaction>
 		switch (startDate, endDate) {
 		case (.some(let startDate), .some(let endDate)):
@@ -39,32 +41,33 @@ class Account: Identifiable, Equatable, Comparable {
 			}
 			} // switch
 
-		//TODO: Add parameters for currency conversion, and including child accounts
-		let relevantTransactions: [Transaction]
 		do {
-			relevantTransactions = try incomingTransactions.filter(predicate)
+			relevantTransactions = try relevantTransactions.filter(predicate)
 		} catch {
-			relevantTransactions = incomingTransactions
+			OBLog().error("Unable to filter relevant \(name) transactions.")
 		}
 
-		return relevantTransactions.sum(\.amount)
+		var total = relevantTransactions.sum(\.amount)
+		return total.roundedTo(decimalPlaces: 2)
 	}
 
-	func totalDebits(from startDate: Date, to endDate: Date) -> Decimal {
-		let relevantTransactions = outgoingTransactions.filter({
-			$0.date >= startDate && $0.date <= endDate
-		})
-		return relevantTransactions.sum(\.amount)
+	func totalCredits(from startDate: Date?, to endDate: Date?) -> Decimal {
+		return totalTransactions(from: startDate, to: endDate, transactionType: .credit)
 	}
 
-	func movement(from startDate: Date, to endDate: Date) -> Decimal {
+	func totalDebits(from startDate: Date?, to endDate: Date?) -> Decimal {
+		return totalTransactions(from: startDate, to: endDate, transactionType: .debit)
+	}
+
+	func movement(from startDate: Date?, to endDate: Date?) -> Decimal {
 		let myLogger = OBLog()
-		myLogger.debug("Calculating the movement in \(name) from \(startDate.formatted()) to \(endDate.formatted()).")
+		myLogger.debug("Calculating the movement in \(name) from \(startDate?.formatted() ?? "the beginning of time") to \(endDate?.formatted() ?? "the end of time").")
 		let credits = totalCredits(from: startDate, to: endDate)
 		myLogger.debug("The credits were \(credits.formatted()).")
 		let debits = totalDebits(from: startDate, to: endDate)
 		myLogger.debug("The debits were \(debits.formatted()).")
-		return credits - debits
+		var total = credits - debits
+		return total.roundedTo(decimalPlaces: 2)
 	}
 
 	func balance(asAt balanceDate: Date) -> Decimal {
@@ -89,4 +92,8 @@ class Account: Identifiable, Equatable, Comparable {
 		self.parentAccountID = parentAccountID
 		self.isDeletable = isDeletable
 	}
+}
+
+enum TransactionType: String, CaseIterable, Codable, RawRepresentable {
+	case credit, debit
 }
