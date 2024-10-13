@@ -18,6 +18,7 @@ class Account: Identifiable, Equatable, Comparable {
 	@Relationship(deleteRule: .cascade) var openingBalance: OpeningBalance?
 
 	func totalCredits(from startDate: Date, to endDate: Date) -> Decimal {
+		//TODO: Add parameters for currency conversion, and including child accounts
 		let relevantTransactions = incomingTransactions.filter({
 			$0.date >= startDate && $0.date <= endDate
 		})
@@ -39,6 +40,14 @@ class Account: Identifiable, Equatable, Comparable {
 		let debits = totalDebits(from: startDate, to: endDate)
 		myLogger.debug("The debits were \(debits.formatted()).")
 		return credits - debits
+	}
+
+	func balance(asAt balanceDate: Date) -> Decimal {
+//TODO: Handle currency conversion.
+		var startingBalance: Decimal = openingBalance?.amount ?? 0
+		//TODO: Get the budget period start date or the first date on which there are transactions in the db.
+		let startDate = openingBalance?.date ??  Date.distantPast
+		return startingBalance + movement(from: startDate, to: balanceDate)
 	}
 
 	static func ==(lhs: Account, rhs: Account) -> Bool {
