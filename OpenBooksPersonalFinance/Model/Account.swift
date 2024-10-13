@@ -17,11 +17,36 @@ class Account: Identifiable, Equatable, Comparable {
 
 	@Relationship(deleteRule: .cascade) var openingBalance: OpeningBalance?
 
-	func totalCredits(from startDate: Date, to endDate: Date) -> Decimal {
+	func totalCredits(from startDate: Date?, to endDate: Date?) -> Decimal {
+		let predicate: Predicate<Transaction>
+		switch (startDate, endDate) {
+		case (.some(let startDate), .some(let endDate)):
+			predicate = #Predicate<Transaction> { transaction in
+				transaction.date >= startDate && transaction.date <= endDate
+			}
+		case (.none, .some(let endDate)):
+			predicate = #Predicate<Transaction> { transaction in
+				transaction.date <= endDate
+			}
+		case (.some(let startDate), .none):
+			predicate = #Predicate<Transaction> { transaction in
+				transaction.date >= startDate
+			}
+		case (.none, .none):
+			predicate = #Predicate<Transaction> { transaction in
+				// just returning true doesn't work as compiler expects value of type Transaction<Bool>
+				transaction.date == transaction.date
+			}
+			} // switch
+
 		//TODO: Add parameters for currency conversion, and including child accounts
-		let relevantTransactions = incomingTransactions.filter({
-			$0.date >= startDate && $0.date <= endDate
-		})
+		let relevantTransactions: [Transaction]
+		do {
+			relevantTransactions = try incomingTransactions.filter(predicate)
+		} catch {
+			relevantTransactions = incomingTransactions
+		}
+
 		return relevantTransactions.sum(\.amount)
 	}
 
@@ -44,7 +69,7 @@ class Account: Identifiable, Equatable, Comparable {
 
 	func balance(asAt balanceDate: Date) -> Decimal {
 //TODO: Handle currency conversion.
-		var startingBalance: Decimal = openingBalance?.amount ?? 0
+		let startingBalance: Decimal = openingBalance?.amount ?? 0
 		//TODO: Get the budget period start date or the first date on which there are transactions in the db.
 		let startDate = openingBalance?.date ??  Date.distantPast
 		return startingBalance + movement(from: startDate, to: balanceDate)
