@@ -75,7 +75,8 @@ class Account: Identifiable, Equatable, Comparable {
 		let startingBalance: Decimal = openingBalance?.amount ?? 0
 		//TODO: Get the budget period start date or the first date on which there are transactions in the db.
 		let startDate = openingBalance?.date ??  Date.distantPast
-		return startingBalance + movement(from: startDate, to: balanceDate)
+		let closingBalance = startingBalance + movement(from: startDate, to: balanceDate)
+		return closingBalance.roundedTo(decimalPlaces: 2)
 	}
 
 	static func ==(lhs: Account, rhs: Account) -> Bool {

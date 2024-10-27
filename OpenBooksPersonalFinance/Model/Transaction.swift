@@ -3,7 +3,7 @@ import OBFoundation
 import SwiftData
 
 @Model
-class Transaction: Identifiable {
+				class Transaction: Identifiable {
 	@Attribute(.unique) let id: Int
 	var date = Date()
 	var note: String = ""
