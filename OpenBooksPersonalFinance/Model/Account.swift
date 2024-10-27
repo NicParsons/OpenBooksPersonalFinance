@@ -95,6 +95,3 @@ class Account: Identifiable, Equatable, Comparable {
 	}
 }
 
-enum TransactionType: String, CaseIterable, Codable, RawRepresentable {
-	case credit, debit
-}
