@@ -10,7 +10,7 @@ class OpeningBalance {
 	var currency: Currency
 	var date: Date
 
-	init(account: Account, amount: Decimal = 0, currency: Currency, date: Date) {
+	init(account: Account, amount: Decimal = 0, currency: Currency, date: Date = Date.now) {
 		self.account = account
 		self.amount = amount
 		self.currency = currency
