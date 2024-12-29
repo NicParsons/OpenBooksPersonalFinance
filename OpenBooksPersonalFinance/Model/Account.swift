@@ -24,7 +24,7 @@ class Account: Identifiable, Equatable, Comparable {
 	}
 
 	func totalTransactions(from startDate: Date?, to endDate: Date?, transactionType: TransactionType) -> Decimal {
-		//TODO: Add parameters for currency conversion, and including child accounts
+		//TODO: Add parameters for currency conversion
 		var relevantTransactions = transactionType == .credit ? incomingTransactions : outgoingTransactions
 		let predicate: Predicate<Transaction>
 		switch (startDate, endDate) {
@@ -58,11 +58,17 @@ class Account: Identifiable, Equatable, Comparable {
 	}
 
 	func totalCredits(from startDate: Date?, to endDate: Date?) -> Decimal {
-		return totalTransactions(from: startDate, to: endDate, transactionType: .credit)
+		let childTotal = !isParent ? 0.0 : children.reduce(0.0) { sum, account in
+			sum + account.totalCredits(from: startDate, to: endDate)
+		}
+		return childTotal + totalTransactions(from: startDate, to: endDate, transactionType: .credit)
 	}
 
 	func totalDebits(from startDate: Date?, to endDate: Date?) -> Decimal {
-		return totalTransactions(from: startDate, to: endDate, transactionType: .debit)
+		let childTotal = !isParent ? 0.0 : children.reduce(0.0) { sum, account in
+			sum + account.totalDebits(from: startDate, to: endDate)
+		}
+		return childTotal + totalTransactions(from: startDate, to: endDate, transactionType: .debit)
 	}
 
 	func movement(from startDate: Date?, to endDate: Date?) -> Decimal {
@@ -80,7 +86,7 @@ class Account: Identifiable, Equatable, Comparable {
 //TODO: Handle currency conversion.
 		let startingBalance: Decimal = openingBalance?.amount ?? 0
 		//TODO: Get the budget period start date or the first date on which there are transactions in the db.
-		let startDate = openingBalance?.date ??  Date.distantPast
+		let startDate = openingBalance?.date ?? Date.distantPast
 		let closingBalance = startingBalance + movement(from: startDate, to: balanceDate)
 		return closingBalance.roundedTo(decimalPlaces: 2)
 	}
