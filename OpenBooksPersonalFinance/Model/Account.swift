@@ -19,6 +19,10 @@ class Account: Identifiable, Equatable, Comparable {
 
 	@Relationship(deleteRule: .cascade) var openingBalance: OpeningBalance?
 
+	var isParent: Bool {
+		!children.isEmpty
+	}
+
 	func totalTransactions(from startDate: Date?, to endDate: Date?, transactionType: TransactionType) -> Decimal {
 		//TODO: Add parameters for currency conversion, and including child accounts
 		var relevantTransactions = transactionType == .credit ? incomingTransactions : outgoingTransactions
