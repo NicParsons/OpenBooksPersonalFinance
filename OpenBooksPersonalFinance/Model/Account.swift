@@ -7,10 +7,12 @@ class Account: Identifiable, Equatable, Comparable {
 	@Attribute(.unique) let id: String
 	var name: String
 	// parentAccountID should ideally be foreign key to accounts.ID
+	@Relationship(inverse: \Account.children)
 	var parentAccountID: Account.ID?
 	var hidden = false
 	var isDeletable = true
 	var isNotDeletable: Bool { !isDeletable }
+	@Relationship var children = [Account]()
 
 	@Relationship var outgoingTransactions = [Transaction]()
 	@Relationship var incomingTransactions = [Transaction]()
@@ -47,7 +49,7 @@ class Account: Identifiable, Equatable, Comparable {
 			OBLog().error("Unable to filter relevant \(name) transactions.")
 		}
 
-		var total = relevantTransactions.sum(\.amount)
+		let total = relevantTransactions.sum(\.amount)
 		return total.roundedTo(decimalPlaces: 2)
 	}
 
@@ -66,7 +68,7 @@ class Account: Identifiable, Equatable, Comparable {
 		myLogger.debug("The credits were \(credits.formatted()).")
 		let debits = totalDebits(from: startDate, to: endDate)
 		myLogger.debug("The debits were \(debits.formatted()).")
-		var total = credits - debits
+		let total = credits - debits
 		return total.roundedTo(decimalPlaces: 2)
 	}
 
