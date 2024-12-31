@@ -163,11 +163,9 @@ var title = "Accounts"
 	}
 
 	private func addAccount() {
-		let accountManager = AccountManager(context: context)
-		let newID = accountManager.newID(inParentCategory: parentAccountID)
+		let model = Model(context: context)
 		withAnimation {
-			let newAccount = Account(id: newID, name: "New Account", parentAccountID: parentAccountID)
-			context.insert(newAccount)
+			model.accountManager.addAccount(named: "New Account", in: parentAccountID, currency: model.preferences.defaultCurrency)
 		}
 	}
 
