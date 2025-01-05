@@ -18,9 +18,9 @@ struct FirstLaunchView: View {
 				Spacer()
 
 				Button("Done", action: {
-					let manager = AccountManager(context: context, accounts: accounts)
+					let model = Model(context: context)
 					withAnimation {
-						if manager.createDefaultAccounts() {
+						if model.accountManager.createDefaultAccounts(withDefaultCurrency: preferences.defaultCurrency) {
 							preferences.firstLaunch = false
 							myLogger.log("Set first launch to false.")
 							visible = false

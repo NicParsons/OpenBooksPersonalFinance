@@ -12,6 +12,10 @@ class AccountManager {
 		return accounts.first(where: { $0.id == accountID } ) ?? nil
 	}
 
+	static var all: FetchDescriptor<Account> {
+		FetchDescriptor<Account>()
+	}
+
 	func childAccounts(of account: Account) -> [Account] {
 		return accounts.filter( { $0.parentAccountID == account.id })
 	}
@@ -112,17 +116,19 @@ return accountID
 		} // end if largest
 	}
 
-	func addAccount(named accountName: String = "New Account", in parentAccountID: Account.ID? = nil, deletable: Bool = true) -> Account {
+	func addAccount(named accountName: String = "New Account", in parentAccountID: Account.ID? = nil, currency: Currency, deletable: Bool = true) -> Account {
 		let newID = newID(inParentCategory: parentAccountID)
 		let newAccount = Account(id: newID, name: accountName, parentAccountID: parentAccountID, isDeletable: deletable)
+		//TODO: add opening balance placeholder
+		newAccount.openingBalance = OpeningBalance(account: newAccount, amount: 0.0, currency: currency)
 		accounts.append(newAccount)
 			context.insert(newAccount)
 		myLogger.log("Created new account named \(newAccount.name) with ID \(newAccount.id).")
 		return newAccount
 	} // func
 
-	func addAccount(named accountName: String = "New Account", in parentAccount: Account, deletable: Bool = true) -> Account {
-		return addAccount(named: accountName, in: parentAccount.id, deletable: deletable)
+	func addAccount(named accountName: String = "New Account", in parentAccount: Account, currency: Currency, deletable: Bool = true) -> Account {
+		return addAccount(named: accountName, in: parentAccount.id, currency: currency, deletable: deletable)
 	}
 
 	func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
@@ -148,7 +154,7 @@ return accountID
 		}
 	}
 
-	func createDefaultAccounts() -> Bool {
+	func createDefaultAccounts(withDefaultCurrency currency: Currency) -> Bool {
 // to be run on first launch to create default account structure
 		// start by deleting earlier accounts, at least for now
 		//TODO: Find way to check whether an existing account already exists
@@ -156,55 +162,72 @@ return accountID
 		delete(accounts, ignoringDeletability: true)
 
 // start with assets
-		let assets = addAccount(named: "Assets", deletable: false)
-		let liquidAssets = addAccount(named: "Liquid assets", in: assets, deletable: false)
-		let cash = addAccount(named: "Cash", in: liquidAssets, deletable: false)
+		let assets = addAccount(named: "Assets", currency: currency, deletable: false)
+		let liquidAssets = addAccount(named: "Liquid assets", in: assets, currency: currency, deletable: false)
+		let cash = addAccount(named: "Cash", in: liquidAssets, currency: currency, deletable: false)
 		// create cash accounts for local currency
-		let bankAccounts = addAccount(named: "Bank accounts", in: liquidAssets, deletable: false)
-		let transactionAccount = addAccount(named: "Transaction account", in: bankAccounts)
-		let savingsAccount = addAccount(named: "Savings account", in: bankAccounts)
-		let nonLiquidAssets = addAccount(named: "Non-liquid assets", in: assets, deletable: false)
-		let realProperty = addAccount(named: "Real property", in: nonLiquidAssets)
-		let shares = addAccount(named: "Shares", in: nonLiquidAssets)
-		let superAnnuation = addAccount(named: "Superannuation", in: nonLiquidAssets)
+		let bankAccounts = addAccount(named: "Bank accounts", in: liquidAssets, currency: currency, deletable: false)
+		let transactionAccount = addAccount(named: "Transaction account", in: bankAccounts, currency: currency)
+		let savingsAccount = addAccount(named: "Savings account", in: bankAccounts, currency: currency)
+		let nonLiquidAssets = addAccount(named: "Non-liquid assets", in: assets, currency: currency, deletable: false)
+		let realProperty = addAccount(named: "Real property", in: nonLiquidAssets, currency: currency)
+		let shares = addAccount(named: "Shares", in: nonLiquidAssets, currency: currency)
+		let superAnnuation = addAccount(named: "Superannuation", in: nonLiquidAssets, currency: currency)
 
 		// liabilities
-		let liabilities = addAccount(named: "Liabilities", deletable: false)
-		let debtsOwing = addAccount(named: "Debts owing", in: liabilities, deletable: false)
-		let creditCards = addAccount(named: "Credit cards", in: debtsOwing)
-		let _ = addAccount(named: "Amex", in: creditCards)
-		let shortTermDebt = addAccount(named: "Short-term debt", in: liabilities, deletable: false)
-		let longTermDebt = addAccount(named: "Long-term debt", in: liabilities, deletable: false)
+		let liabilities = addAccount(named: "Liabilities", currency: currency, deletable: false)
+		let debtsOwing = addAccount(named: "Debts owing", in: liabilities, currency: currency, deletable: false)
+		let creditCards = addAccount(named: "Credit cards", in: debtsOwing, currency: currency)
+		let _ = addAccount(named: "Amex", in: creditCards, currency: currency)
+		let shortTermDebt = addAccount(named: "Short-term debt", in: liabilities, currency: currency, deletable: false)
+		let longTermDebt = addAccount(named: "Long-term debt", in: liabilities, currency: currency, deletable: false)
 
 		// income
-		let income = addAccount(named: "Income", deletable: false)
-		let salary = addAccount(named: "Salary", in: income)
-		let interestIncome = addAccount(named: "Interest income", in: income)
-		let otherIncome = addAccount(named: "Income (other)", in: income)
+		let income = addAccount(named: "Income", currency: currency, deletable: false)
+		let salary = addAccount(named: "Salary", in: income, currency: currency)
+		let interestIncome = addAccount(named: "Interest income", in: income, currency: currency)
+		let otherIncome = addAccount(named: "Income (other)", in: income, currency: currency)
 
 		// expenses
-		let expenses = addAccount(named: "Expenses", deletable: false)
-		let household = addAccount(named: "Household", in: expenses)
-		let food = addAccount(named: "Food", in: expenses)
-		let _ = addAccount(named: "Groceries", in: food)
-		let boughtMeals = addAccount(named: "Bought meals", in: food)
-		let _ = addAccount(named: "Deliveries", in: boughtMeals)
-		let _ = addAccount(named: "Work lunches", in: boughtMeals)
-		let _ = addAccount(named: "Eating out", in: boughtMeals)
-		let _ = addAccount(named: "Personal", in: expenses)
-		let _ = addAccount(named: "Medical", in: expenses)
-		let _ = addAccount(named: "Finance", in: expenses)
-		let _ = addAccount(named: "Gifts and celebrations", in: expenses)
-		let _ = addAccount(named: "Vacation", in: expenses)
+		let expenses = addAccount(named: "Expenses", currency: currency, deletable: false)
+		let household = addAccount(named: "Household", in: expenses, currency: currency)
+		let food = addAccount(named: "Food", in: expenses, currency: currency)
+		let _ = addAccount(named: "Groceries", in: food, currency: currency)
+		let boughtMeals = addAccount(named: "Bought meals", in: food, currency: currency)
+		let _ = addAccount(named: "Deliveries", in: boughtMeals, currency: currency)
+		let _ = addAccount(named: "Work lunches", in: boughtMeals, currency: currency)
+		let _ = addAccount(named: "Eating out", in: boughtMeals, currency: currency)
+		let _ = addAccount(named: "Personal", in: expenses, currency: currency)
+		let _ = addAccount(named: "Medical", in: expenses, currency: currency)
+		let _ = addAccount(named: "Finance", in: expenses, currency: currency)
+		let _ = addAccount(named: "Gifts and celebrations", in: expenses, currency: currency)
+		let _ = addAccount(named: "Vacation", in: expenses, currency: currency)
 
 		// capital
-		let capital = addAccount(named: "Capital", deletable: false)
+		let _ = addAccount(named: "Capital", currency: currency, deletable: false)
 		myLogger.log("Created all default accounts.")
 		return true
 	} // func
 
-	init(context: ModelContext, accounts: [Account]) {
+	init(context: ModelContext) {
 		self.context = context
-		self.accounts = accounts
+		do {
+			self.accounts = try context.fetch(AccountManager.all)
+		} catch {
+			OBLog().error("Unable to fetch Account models when initialising AccountManager.")
+			self.accounts = []
+		} // do try catch
+	} // init
+} // class
+
+extension Sequence where Element: AdditiveArithmetic {
+	func sum() -> Element {
+		reduce(.zero, +)
+	}
+}
+
+extension Sequence {
+	func sum<T: AdditiveArithmetic>(_ predicate: (Element) -> T) -> T {
+		reduce(.zero) { $0 + predicate($1) }
 	}
 }
