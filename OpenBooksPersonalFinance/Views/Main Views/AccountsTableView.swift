@@ -140,11 +140,10 @@ extension AccountsTableView {
 	}
 
 	var selectedAccountsAreDeletable: Bool {
-		var areDeletable = true
 		for account in selectedAccounts {
-			if !account.isDeletable { areDeletable = false }
+			if !account.isDeletable { return false }
 		}
-		return areDeletable
+		return true
 	}
 
 	var firstSelectedAccount: Account? {
