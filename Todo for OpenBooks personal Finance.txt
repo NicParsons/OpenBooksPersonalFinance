@@ -1,0 +1,25 @@
+#Todo for OpenBooks personal Finance
+
+##Swift UI Version
+
+* in AccountsTableView, make selectedAccountsAreDeletable computed property more efficient
+
+before change 
+
+	var selectedAccountsAreDeletable: Bool {
+		var areDeletable = true
+		for account in selectedAccounts {
+			if !account.isDeletable { areDeletable = false }
+		}
+		return areDeletable
+	}
+	
+after change
+
+	var selectedAccountsAreDeletable: Bool {
+		for account in selectedAccounts {
+			if !account.isDeletable { return false }
+		}
+		return true
+	}
+	
