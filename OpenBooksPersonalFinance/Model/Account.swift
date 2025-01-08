@@ -23,6 +23,16 @@ class Account: Identifiable, Equatable, Comparable {
 		!children.isEmpty
 	}
 
+	// synonym for convenience
+	var hasChildren: Bool { isParent }
+
+	var hasNoTransactions: Bool {
+		incomingTransactions.isEmpty && outgoingTransactions.isEmpty
+	}
+
+	// the opposite
+	var hasTransactions: Bool { !hasNoTransactions }
+
 	func totalTransactions(from startDate: Date?, to endDate: Date?, transactionType: TransactionType) -> Decimal {
 		//TODO: Add parameters for currency conversion
 		var relevantTransactions = transactionType == .credit ? incomingTransactions : outgoingTransactions

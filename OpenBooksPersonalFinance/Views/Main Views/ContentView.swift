@@ -30,11 +30,5 @@ struct ContentView: View {
 			#endif
 					} // TabView
 		.tabViewStyle(.sidebarAdaptable)
-#if DEBUG
-		.onAppear {
-			// let transactionManager = TransactionManager(transactions, context: context)
-			// transactionManager.deleteAllTransactions()
-		}
-		#endif
 	} // body
 } // view

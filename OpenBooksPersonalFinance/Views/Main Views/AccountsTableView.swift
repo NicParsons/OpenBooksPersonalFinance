@@ -164,26 +164,27 @@ var title = "Accounts"
 	private func addAccount() {
 		let model = Model(context: context)
 		withAnimation {
-			model.accountManager.addAccount(named: "New Account", in: parentAccountID, currency: model.preferences.defaultCurrency)
+			let newAccount = model.addAccount(in: parentAccountID)
+			selection.removeAll()
+			selection.insert(newAccount.id)
 		}
 	}
 
 	private func deleteAccounts(at offsets: IndexSet) {
+		let model = Model(context: context)
 		withAnimation {
 			for index in offsets {
-				context.delete(accounts[index])
+				model.delete(accounts[index])
 			}
+			selection.removeAll()
 		}
 	}
 
 	private func deleteSelectedAccounts(_ identifiers: Set<Account.ID>) {
-		let accountManager = AccountManager(context: context)
+		let model = Model(context: context)
 		withAnimation {
-			for accountID in identifiers {
-				if let account = accountManager[accountID] {
-					context.delete(account)
-				}
-			}
+			model.deleteSelectedAccounts(identifiers)
+			selection.removeAll()
 		}
 	}
 }
